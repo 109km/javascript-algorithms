@@ -18,14 +18,13 @@ function insertMineSort(arr) {
 }
 
 function insertSortOrigin(arr) {
-  let comparingIndex, temp;
+  let temp;
   for (let i = 0; i < arr.length; i++) {
-    comparingIndex = i;
-    for (let j = 0; j < comparingIndex; j++) {
-      if (arr[comparingIndex] < arr[j]) {
-        temp = arr[j];
-        arr[j] = arr[comparingIndex];
-        arr[comparingIndex] = temp;
+    for (let j = i; j > 0; j--) { // 从后向前比较，也可以从前往后比较
+      if (arr[j] < arr[j - 1]) {
+        temp = arr[j - 1];
+        arr[j - 1] = arr[j];
+        arr[j] = temp;
       }
     }
   }
