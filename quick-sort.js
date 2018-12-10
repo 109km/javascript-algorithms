@@ -15,7 +15,7 @@ function quickSort(arr) {
   }
   return quickSort(left).concat([mid], quickSort(right));
 }
-let arr = [30, 5, 10, 9, 48, 299, 70, 1, 66, 8];
+let arr = [3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48];
 console.time('快速排序耗时');
 console.log(quickSort(arr));
 console.timeEnd('快速排序耗时');
