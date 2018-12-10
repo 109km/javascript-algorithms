@@ -12,5 +12,6 @@ function bubbleSort(arr) {
 }
 
 let arr = [100, 29, 19, 300, 18, 29, 9, 2, 17]
-
+console.time('冒泡排序耗时');
 console.log(bubbleSort(arr));
+console.timeEnd('冒泡排序耗时');
