@@ -1,31 +1,37 @@
 function buildMaxHeap(arr) {
-  let i;
-  i = Math.floor(arr.length / 2) - 1;
-  while (i >= 0) {
-    heapify(arr, i, arr.length);
-    --i;
+  let lastParentNodeIndex;
+
+  // Calculate the last parent node's index.
+  lastParentNodeIndex = Math.floor(arr.length / 2) - 1;
+
+  // Heapify starts from the last parent node.
+  while (lastParentNodeIndex >= 0) {
+    heapify(arr, lastParentNodeIndex, arr.length);
+    --lastParentNodeIndex;
   }
-  return arr;
 }
 
-function heapify(heap, i, max) {
-  let index, leftChild, rightChild;
-  while (i < max) {
-    index = i;
-    leftChild = 2 * i + 1;
-    rightChild = 2 * (i + 1);
+function heapify(heap, current, max) {
+  let maxIndex, leftChild, rightChild;
+  while (current < max) {
+    maxIndex = current;
+    leftChild = 2 * current + 1;
+    rightChild = leftChild + 1;
 
-    if (leftChild < max && heap[leftChild] > heap[index]) {
-      index = leftChild;
+    // Find the max node in the three nodes.
+    if (leftChild < max && heap[leftChild] > heap[maxIndex]) {
+      maxIndex = leftChild;
     }
-    if (rightChild < max && heap[rightChild] > heap[index]) {
-      index = rightChild;
+    if (rightChild < max && heap[rightChild] > heap[maxIndex]) {
+      maxIndex = rightChild;
     }
-    if (index === i) {
+    // If parent node is the largest number, no more other actions.
+    if (maxIndex === current) {
       return;
     }
-    swap(heap, i, index);
-    i = index;
+    // Swap the largest number to the parent node.
+    swap(heap, current, maxIndex);
+    current = maxIndex;
   }
 }
 
@@ -41,19 +47,23 @@ function heapSort(array) {
   buildMaxHeap(array);
 
   // Find last element.
-  lastElement = array.length - 1;
+  let lastElement = array.length - 1;
 
   // Continue heap sorting until we have
   // just one element left in the array.
-  while (lastElement > 0) {
+  while (lastElement >= 0) {
+
+    // Switch the largest number to the array's end.
     swap(array, 0, lastElement);
 
+    // Re-heapify the new heap.
     heapify(array, 0, lastElement);
 
-    lastElement -= 1
+    // Exclude the ordered numbers.
+    --lastElement;
   }
-  return array;
 }
 
-let arr = [28, 3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48, 666];
-console.log(heapSort(arr));
+let arr = [28, 3, 87, 44, 6];
+heapSort(arr, 0, arr.length);
+console.log(arr);
