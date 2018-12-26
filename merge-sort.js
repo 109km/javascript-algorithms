@@ -1,3 +1,10 @@
+/** 
+ * @desc 
+ * Split the array in two : log n
+ * Compare two numbers : n / 2
+ * Final time complexity n * log n
+*/
+
 function compareAndConcat(left, right) {
   let concatArray = [];
   while (left.length && right.length) {
