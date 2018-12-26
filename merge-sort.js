@@ -1,39 +1,32 @@
-let i = 0;
-
-function mergeSort(arr) {
-  let len = arr.length;
-  if (len < 2) {
-    return arr;
-  }
-  let middle = Math.floor(len / 2);
-  let left = arr.slice(0, middle);
-  let right = arr.slice(middle, len);
-  return merge(mergeSort(left), mergeSort(right));
-}
-
-function merge(left, right) {
-  let result = [];
-
-  // Sort the two arrays
-  // The minimum number comes first
+function compareAndConcat(left, right) {
+  let concatArray = [];
   while (left.length && right.length) {
     if (left[0] <= right[0]) {
-      result.push(left.shift());
-    }
-    if (right[0] <= left[0]) {
-      result.push(right.shift());
+      concatArray.push(left.shift());
+    } else {
+      concatArray.push(right.shift());
     }
   }
   if (left.length) {
-    result = result.concat(left);
+    concatArray = concatArray.concat(left);
   }
   if (right.length) {
-    result = result.concat(right);
+    concatArray = concatArray.concat(right);
   }
-  // console.log(result);
-  return result;
+  return concatArray;
 }
 
-let arr = [80, 42, 85, 19, 27];
-let sortedArr = mergeSort(arr);
-console.log(sortedArr);
+function mergeAndSort(arr) {
+  let len = arr.length;
+  if (len === 1) {
+    return arr;
+  }
+  let mid = Math.floor(arr.length / 2);
+  let left = arr.slice(0, mid);
+  let right = arr.slice(mid, len);
+  return compareAndConcat(mergeAndSort(left), mergeAndSort(right));
+}
+
+let arr = [19, 8, 5, 4, 17];
+
+console.log(mergeAndSort(arr));
