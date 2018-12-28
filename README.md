@@ -1,13 +1,13 @@
-# javascript-algorithms
+# Javascript algorithms
 
-# Sort algorithms
+## Sort algorithms
 
 Some kinds of sort algorithms, and they are implemented in javascript.
 
-# Leetcode
+## Leetcode
 
 Some solutions of leetcode's problems.
 
-# Data structure
+## Data structure
 
 Data structures implemented in Javascript.
