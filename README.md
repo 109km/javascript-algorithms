@@ -1,3 +1,13 @@
-# javascript-sort-algorithm
+# javascript-algorithms
 
-Ten kinds of sort algorithms, and they are implemented in javascript.
+# Sort algorithms
+
+Some kinds of sort algorithms, and they are implemented in javascript.
+
+# Leetcode
+
+Some solutions of leetcode's problems.
+
+# Data structure
+
+Data structures implemented in Javascript.
