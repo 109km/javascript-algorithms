@@ -20,7 +20,8 @@ let o = {
   foods:{
     morning: ['A','B'],
     moon:'meat'
-  }
+  },
+  date: new Date()
 }
 
 let b = deepClone(o);
