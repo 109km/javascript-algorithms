@@ -7,4 +7,4 @@ list.add(3);
 list.add(4);
 list.remove(0);
 list.remove(2);
-console.log(list.getTail());
+console.log(list);
