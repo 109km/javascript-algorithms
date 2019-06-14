@@ -5,7 +5,7 @@ class LinkedListNode {
   }
 }
 
-export default class SinglelyLinkedList {
+class SinglelyLinkedList {
   constructor() {
     this.head = null;
   }
@@ -47,6 +47,17 @@ export default class SinglelyLinkedList {
       return current;
     }
   }
+  insertAfter(index, data) {
+    let afterNode = this.get(index);
+    let newNode = new LinkedListNode(data);
+
+    if (afterNode.next !== null) {
+      let afterNextNode = this.get(index + 1);
+      newNode.next = afterNextNode;
+    }
+    afterNode.next = newNode;
+
+  }
   getHead() {
     return this.head;
   }
@@ -58,3 +69,12 @@ export default class SinglelyLinkedList {
     return current;
   }
 }
+
+const list = new SinglelyLinkedList();
+list.add(1);
+list.add(2);
+list.add(3);
+list.add(4);
+list.remove(0);
+list.remove(2);
+console.log(list);
