@@ -8,73 +8,76 @@ class LinkedListNode {
 export default class SinglelyLinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
   }
-  add(data) {
+  prepend(data) {
+    const newNode = new LinkedListNode(data);
+    newNode.next = this.head;
+    this.head = newNode;
+    if (this.tail === null) {
+      this.tail = newNode;
+    }
+  }
+  append(data) {
     const newNode = new LinkedListNode(data);
     if (this.head === null) {
       this.head = newNode;
+      this.tail = newNode;
     } else {
-      let current = this.getTail();
-      current.next = newNode;
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
   }
-  get(index) {
+  find(data, callback) {
     let current = this.head;
-    for (let i = 1; current.next != null && i <= index; i++) {
+    while (current !== null) {
+      if (callback && callback(current)) {
+        return current;
+      }
+
+      if (typeof data !== 'undefined' && current.data === data) {
+        return current;
+      }
       current = current.next;
     }
-    return current;
+    return null;
   }
-  remove(index) {
-    let current = this.get(index);
-    // remove the last node
-    if (current.next === null) {
-      let prev = this.get(index - 1);
-      prev.next = null;
-      return current;
-    }
-
-    // remove the first node
-    if (index === 0) {
-      this.head = current.next;
-      return current;
-    }
-    // remove the middle nodes
-    else if (index > 0) {
-      let prev = this.get(index - 1);
-      let next = this.get(index + 1);
-      prev.next = next;
-      return current;
-    }
-  }
-  insertAfter(index, data) {
-    let afterNode = this.get(index);
-    let newNode = new LinkedListNode(data);
-
-    if (afterNode.next !== null) {
-      let afterNextNode = this.get(index + 1);
-      newNode.next = afterNextNode;
-    }
-    afterNode.next = newNode;
-
-  }
-  getHead() {
-    return this.head;
-  }
-  getTail() {
+  remove(data) {
     let current = this.head;
-    while (current !== null && current.next !== null) {
-      current = current.next;
+    let removedNode;
+    // remove the head
+    if (current.data === this.head.data) {
+      removedNode = this.head;
+      this.head = this.head.next;
+      return removedNode;
     }
-    return current;
+    while (current.next !== null) {
+      if (current.next.data === data) {
+        removedNode = current.next;
+        current.next = current.next.next;
+        return removedNode;
+      } else {
+        current = current.next;
+      }
+    }
+    // remove the tail
+    if (current.next === null && current.data === data) {
+      removedNode = this.tail;
+      this.tail = current;
+      return removedNode;
+    }
+  }
+  insertAfter(data, toNodeData) {
+    let afterNode = this.find(toNodeData);
+    if (afterNode && data) {
+      let newNode = new LinkedListNode(data);
+      newNode.next = afterNode.next;
+      afterNode.next = newNode;
+    }
   }
 }
 
-const list = new SinglelyLinkedList();
-list.add(1);
-list.add(2);
-list.add(3);
-list.add(4);
-list.remove(0);
-list.remove(2);
-console.log(list);
+// const list = new SinglelyLinkedList();
+// list.append(1);
+// list.append(2);
+// list.insertAfter('egg', 1);
