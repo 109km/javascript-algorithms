@@ -17,7 +17,7 @@ class DoublelyLinkedList {
     this.head = null;
     this.tail = null;
   }
-  add(data) {
+  append(data) {
     let node = null;
     node = new LinkedListNode(data);
     if (this.head === null) {
@@ -28,49 +28,53 @@ class DoublelyLinkedList {
     }
     this.tail = node;
   }
-  get(index) {
+  find(data, callback) {
     let current = this.head;
-    let i = 0;
-    while (current.next !== null && i < index) {
+    while (current !== null) {
+      if (callback && callback(current)) {
+        return current;
+      }
+      if (data && data === current.data) {
+        return current;
+      }
       current = current.next;
-      i++;
     }
-    return current;
+    return null;
   }
-  remove(index) {
-    let removeNode = this.get(index);
+  remove(toNodeData) {
+    let removeNode = this.find(toNodeData);
+    // remove head
     if (removeNode.prev === null) {
-      removeNode = this.head;
-      this.head = this.get(1);
-      this.head.setPrev(null);
-    } else if (removeNode.next === null) {
-      removeNode = this.tail;
-      this.tail = this.get(index - 1);
-      this.tail.setNext(null);
-    } else {
-      let prevNode = this.get(index - 1);
-      let nextNode = this.get(index + 1);
-      prevNode.setNext(nextNode);
-      nextNode.setPrev(prevNode);
+      this.head = removeNode.next;
+      removeNode.next.setPrev(null);
+    }
+    // remove tail
+    else if (removeNode.next === null) {
+      this.tail = removeNode.prev;
+      removeNode.prev.setNext(null);
+    }
+    else {
+      removeNode.prev.setNext(removeNode.next);
     }
     return removeNode;
   }
-  insertAfter(index, data) {
-    let afterNode = this.get(index);
-    let newNode = new LinkedListNode(data);
-    if (afterNode.next !== null) {
-      let afterNextNode = this.get(index + 1);
-      afterNextNode.setPrev(newNode);
-      newNode.setNext(afterNextNode);
+  insertAfter(toNodeData, data) {
+    let afterNode = this.find(toNodeData);
+    if (afterNode && data) {
+      let newNode = new LinkedListNode(data);
+      afterNode.next.setPrev(newNode);
+      afterNode.setNext(newNode);
+      newNode.setNext(afterNode.next);
+    }else{
+      console.error(`Node not found`);
     }
-    afterNode.setNext(newNode);
   }
 }
 
 const list = new DoublelyLinkedList();
-list.add(1);
-list.add(2);
-list.add(3);
-list.insertAfter(1,4);
+list.append(1);
+list.append(2);
+list.append(3);
+list.insertAfter(1, 4);
 
-console.log(list.get(1));
+console.log(list.find(4));
