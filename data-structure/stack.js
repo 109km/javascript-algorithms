@@ -2,7 +2,7 @@ export default class Stack {
   constructor() {
     this.elements = [];
   }
-  get length(){
+  get length() {
     return this.elements.length;
   }
   push(element) {

@@ -1,6 +1,6 @@
 import Stack from './stack';
 
-class StackMin extends Stack {
+class StackWithMinAndReverse extends Stack {
   constructor() {
     super();
     this.minStack = new Stack();
@@ -31,15 +31,29 @@ class StackMin extends Stack {
     return this.elements.pop();
   }
   getMin() {
-    console.log(this.minStack);
     return this.minStack.getTop();
+  }
+  getAndRemoveLastElement() {
+    const elem = this.pop();
+    if (this.isEmpty()) {
+      return elem;
+    } else {
+      const nextElem = this.getAndRemoveLastElement();
+      this.push(elem);
+      return nextElem;
+    }
+  }
+  reverse() {
+    if (this.isEmpty()) {
+      return;
+    }
+    const elem = this.getAndRemoveLastElement();
+    this.reverse();
+    this.push(elem);
   }
 }
 
-const stack = new StackMin();
-stack.push(5).push(3).push(2).push(10).push(5);
-console.log(stack.getMin());
-stack.pop();
-stack.pop();
-stack.pop();
-console.log(stack.getMin());
+const stack = new StackWithMinAndReverse();
+stack.push(5).push(3).push(2).push(8).push(4);
+stack.reverse();
+console.log(stack);
