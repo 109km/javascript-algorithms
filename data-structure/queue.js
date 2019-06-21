@@ -1,6 +1,6 @@
-class Queue {
-  constructor(...args) {
-    this.elements = args;
+export default class Queue {
+  constructor() {
+    this.elements = [];
   }
   get length() {
     return this.elements.length;
@@ -10,6 +10,9 @@ class Queue {
   }
   deQueue() {
     return this.elements.shift();
+  }
+  getTop() {
+    return this.elements[0];
   }
   isEmpty() {
     return this.elements.length > 0 ? false : true;

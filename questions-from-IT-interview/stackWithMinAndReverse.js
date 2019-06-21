@@ -1,4 +1,11 @@
-import Stack from './stack';
+/**
+ * @desc
+ * 1. 设计一个有 `getMin` 功能的栈
+ * 2. 仅适用递归函数和栈操作实现 `reverse` 功能
+ */
+
+
+import Stack from '../data-structure/stack';
 
 class StackWithMinAndReverse extends Stack {
   constructor() {
@@ -43,13 +50,17 @@ class StackWithMinAndReverse extends Stack {
       return nextElem;
     }
   }
+  /**
+ * @desc This method is implemented in a recursive way, in this way
+ * we don't need any new data strucure.
+ */
   reverse() {
     if (this.isEmpty()) {
       return;
     }
-    const elem = this.getAndRemoveLastElement();
+    const last = this.getAndRemoveLastElement();
     this.reverse();
-    this.push(elem);
+    this.push(last);
   }
 }
 
