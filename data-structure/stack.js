@@ -1,13 +1,13 @@
-class Stack {
-  constructor(...args) {
-    this.elements = args;
+export default class Stack {
+  constructor() {
+    this.elements = [];
   }
   get length(){
     return this.elements.length;
   }
   push(element) {
     this.elements.push(element);
-    return this.elements;
+    return this;
   }
   pop() {
     return this.elements.pop();
@@ -20,6 +20,6 @@ class Stack {
   }
 }
 
-let s = new Stack(1,23,5);
-s.push(10);
-console.log(s);
+// let s = new Stack();
+// s.push(10).push(5).push(8);
+// console.log(s);
