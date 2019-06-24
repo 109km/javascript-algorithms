@@ -46,7 +46,6 @@ function step(fromTower, toTower, num) {
 function move(direction) {
   let toTower = null;
   let fromTower = null;
-  let level = 0;
   if (direction === 'left') {
     fromTower = rightTower;
     toTower = leftTower;
@@ -54,10 +53,31 @@ function move(direction) {
     fromTower = leftTower;
     toTower = rightTower;
   }
-  while (rightTower.length < LEVEL) {
-    level += 1;
-    step(leftTower,rightTower,level);
-    
+  let maxLevel = fromTower.length;
+  let currentLevel = 0;
+  while (currentLevel < maxLevel) {
+    currentLevel += 1;
+    if (currentLevel === 1) {
+      // move n-1 to right
+      step(fromTower, toTower, currentLevel);
+
+      // move n to mid
+      step(leftTower, midTower, currentLevel + 1);
+
+      // move n-1 to left
+      step(rightTower, leftTower, currentLevel);
+
+      // move n to right
+      step(midTower, rightTower, currentLevel + 1);
+
+      // move n-1 to right;
+      step(leftTower, rightTower, currentLevel);
+    }
+
+
 
   }
 }
+
+initTower(1, leftTower);
+move('right');
