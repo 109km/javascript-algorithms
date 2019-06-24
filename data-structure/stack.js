@@ -16,6 +16,9 @@ export default class Stack {
     return this.elements.length === 0 ? true : false;
   }
   getTop() {
+    if (this.isEmpty()) {
+      return null;
+    }
     return this.elements[this.elements.length - 1];
   }
 }
