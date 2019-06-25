@@ -24,7 +24,14 @@ Data structures implemented in Javascript.
 * queue
 * singlely linked list
 * doublely linked list
+* tree
 
+## Questions from 《IT-Interview》
+* Stack with `getMin` and `reverse`
+* Stack with `sort` implemented by another stack
+* Queue of dogs and cats
+* Hanoi Tower with order implemented by recursion
+* Hanoi Tower with order implemented by stack
 
 # How to run
 

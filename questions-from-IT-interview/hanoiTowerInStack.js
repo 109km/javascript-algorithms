@@ -9,47 +9,73 @@ import Stack from '../data-structure/stack';
 
 const LEVEL = 2;
 
-function buildTower(level, name) {
-  const tower = new Stack();
-  tower.name = name;
-  if (!level) {
-    return tower;
-  }
+const leftTower = new Stack();
+const midTower = new Stack();
+const rightTower = new Stack();
 
-  let i = level;
-  while (i >= 0) {
-    tower.push(i);
-    i--;
-  }
-  return tower;
-}
-function move(n, fromTower, toTower) {
-  let output = '';
-  let from = fromTower.name;
-  let to = toTower.name;
-  if (
-    from === 'left' && to === 'right' ||
-    from === 'right' && to === 'left'
-  ) {
-    output += `move ${n} from ${from} to mid\n`;
-    output += `move ${n} from mid to ${to}\n`;
-  }
-  if (from === 'mid' || to === 'mid') {
-    output = `move ${n} from ${from} to ${to}\n`;
-  }
-  const fromTop = fromTower.pop();
-  toTower.push(fromTop);
-  console.log(output);
-}
-function moveToRight(left, mid, right) {
-  let level = left.length;
-  while (level > 1) {
-    
+// Using stacks represent towers.
+const Towers = [
+  leftTower,
+  midTower,
+  rightTower
+]
+
+let totalSteps = 0; // Total steps should equals to 3^n - 1
+
+function buildTower(n, tower) {
+  while (n > 0) {
+    tower.push(n);
+    n--;
   }
 }
 
+function tryToMove(from, to) {
+  // Big number can't be put above small number.
+  const fromTop = Towers[from].getTop();
+  const toTop = Towers[to].getTop();
+  // Each number can't go back.
+  const thisStep = `${to},${from}`;
 
-const leftTower = buildTower(5, 'left');
-const midTower = buildTower(0, 'mid');
-const rightTower = buildTower(0, 'right');
+  // Success
+  if (leftTower.length === 0 && midTower.length === 0) {
+    return 'end';
+  }
+  if (fromTop === null) {
+    return false;
+  }
+  if (lastStep === thisStep) {
+    return false;
+  }
+  if (toTop > fromTop || toTop === null) {
+    Towers[to].push(Towers[from].pop());
+    lastStep = `${from},${to}`;
+    totalSteps++;
+    console.log(`move ${fromTop} from ${from} to ${to}\n`);
+    return true;
+  }
+  return false;
+}
 
+
+function move() {
+  let i = 0;
+  let isAble = false;
+
+  while (isAble !== 'end') {
+    if (i === 0 || i === 2) {
+      isAble = tryToMove(i, 1);
+    }
+    if (i === 1) {
+      isAble = tryToMove(i, 0) || tryToMove(i, 2);
+    }
+    i++;
+    if (i > 2) {
+      i = 0;
+    }
+  }
+}
+
+let lastStep = '';
+buildTower(3, leftTower);
+move();
+console.log(totalSteps);
