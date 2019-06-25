@@ -7,15 +7,13 @@
 
 import Stack from '../data-structure/stack';
 
-const leftTower = new Stack();
-const midTower = new Stack();
-const rightTower = new Stack();
-
+// Using stacks represent towers.
 const Towers = {
-  left: leftTower,
-  mid: midTower,
-  right: rightTower
+  left: new Stack(),
+  mid: Stack(),
+  right: new Stack()
 }
+
 let totalSteps = 0; // Total steps should equals to 3^n - 1
 
 function buildTower(n, tower) {
