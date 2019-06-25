@@ -7,7 +7,7 @@
 
 import Stack from '../data-structure/stack';
 
-const LEVEL = 2;
+const LEVEL = 3;
 
 const leftTower = new Stack();
 const midTower = new Stack();
@@ -22,6 +22,9 @@ const Towers = [
 
 let totalSteps = 0; // Total steps should equals to 3^n - 1
 
+let lastStep = ''; // Store each successful step.
+
+
 function buildTower(n, tower) {
   while (n > 0) {
     tower.push(n);
@@ -33,16 +36,16 @@ function tryToMove(from, to) {
   // Big number can't be put above small number.
   const fromTop = Towers[from].getTop();
   const toTop = Towers[to].getTop();
-  // Each number can't go back.
-  const thisStep = `${to},${from}`;
 
   // Success
   if (leftTower.length === 0 && midTower.length === 0) {
-    return 'end';
+    return 'success';
   }
   if (fromTop === null) {
     return false;
   }
+  // Each step can't be go back.
+  const thisStep = `${to},${from}`;
   if (lastStep === thisStep) {
     return false;
   }
@@ -57,11 +60,11 @@ function tryToMove(from, to) {
 }
 
 
-function move() {
+function moveHanoiTower() {
   let i = 0;
   let isAble = false;
 
-  while (isAble !== 'end') {
+  while (isAble !== 'success') {
     if (i === 0 || i === 2) {
       isAble = tryToMove(i, 1);
     }
@@ -75,7 +78,6 @@ function move() {
   }
 }
 
-let lastStep = '';
-buildTower(3, leftTower);
-move();
+buildTower(LEVEL, leftTower);
+moveHanoiTower();
 console.log(totalSteps);
