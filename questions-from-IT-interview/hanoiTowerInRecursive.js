@@ -25,16 +25,6 @@ function buildTower(n, tower) {
   }
 }
 
-// move n-1 `from` to `to` 
-
-// move n to mid
-
-// move n-1 from `to` to `from`
-
-// move n from `from` to `to`
-
-// move n-1 from `from` to `to`
-
 function step(n, from, to) {
   let output = '';
   let steps = 0;
@@ -56,11 +46,25 @@ function step(n, from, to) {
   console.log(output);
 }
 
+/**
+ * @desc The whole process can be divided into the 5 steps below.
+ * The `from` or `to` can be `leftTower` or `rightTower`.
+ * 1. move n-1 `from` to `to` 
+ * 2. move n to `mid`
+ * 3. move n-1 from `to` to `from`
+ * 4. move n from `mid` to `to`
+ * 5. move n-1 from `from` to `to`
+ * Until the `from` tower has no elements any more, this process ends.
+ * 
+ * @param {number} n The level of the tower
+ * @param {string} to The direction\
+ */
+
 function move(n, to) {
   let from = to === 'right' ? 'left' : 'right';
   if (n === 1) {
     step(n, from, to);
-    return false;
+    return;
   } else {
     move(n - 1, to);
     step(n, from, 'mid');
