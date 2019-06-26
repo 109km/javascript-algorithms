@@ -48,19 +48,24 @@ function getMaxWinowArray(arr, w) {
 }
 
 
+/**
+ * @desc I think this method's complexity is also O(n * w)
+ * Implemented by double-ended-queue
+ */
+
 import DoubleEndedQueue from '../data-structure/double-ended-queue';
 
 function getMaxWindowByQueue(arr, width) {
 
   function compareQueue(arr, index, queue, width) {
-    // Judge the queue last
+    // Before the window is inited.
     let i = 0;
     let len = queue.length;
     if (index < width - 1) {
       queue.addBack(index);
       return null;
     }
-
+    // Check the queue.
     while (i < len) {
       const lastPointer = queue.getLast();
       if (lastPointer !== null && arr[lastPointer] < arr[index]) {
