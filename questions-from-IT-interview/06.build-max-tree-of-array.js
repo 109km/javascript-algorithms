@@ -1,16 +1,16 @@
 /**
  * @desc
 
-  定义二叉树节点如下：
-  public class Node {
-      public int data;
-      public Node left;
-      public Node right;
+定义二叉树节点如下：
+public class Node {
+  public int data;
+  public Node left;
+  public Node right;
 
-      public Node(int data) {
-          this.data = data;
-      }
+  public Node(int data) {
+    this.data = data;
   }
+}
   一个数组的MaxTree定义如下：
   ● 数组必须没有重复元素。
   ● MaxTree是一棵二叉树，数组的每一个值对应一个二叉树节点。
@@ -27,7 +27,24 @@
 
 
 import Stack from '../data-structure/stack';
+import HashTable from '../data-structure/hash-table';
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+function popStackSetMap(stack, map) {
+
+}
 
 function bulidMaxTree(arr) {
-  
+  const nodeArr = Array.from(arr, (n) => {
+    return new Node(n);
+  });
+  const stack = new Stack();
+
 }
