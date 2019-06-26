@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class Tree {
+export default class Tree {
   constructor() {
     this.root = null;
   }
