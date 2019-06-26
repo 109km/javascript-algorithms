@@ -16,24 +16,30 @@
   以本题为例，结果应该返回{5，5，5，4，6，7}。
  */
 
-function findMaxInArray(arr) {
-  let max = null;
-  let len = arr.length;
-  let i = 0;
-  while (i < len) {
-    if (arr[i] > max || max === null) {
-      max = arr[i];
-    }
-    i++;
-  }
-  return max;
-}
+
+/**
+ * @desc This solution is not good, it's complexity is O(n * w)
+ * @param {Array} arr The origin array
+ * @param {Number} w The window's width
+ */
 function getMaxWinowArray(arr, w) {
+  function findMaxInArray(arr) {
+    let max = null;
+    let len = arr.length;
+    let i = 0;
+    while (i < len) {
+      if (arr[i] > max || max === null) {
+        max = arr[i];
+      }
+      i++;
+    }
+    return max;
+  }
+
   const winArray = [];
 
   let pointer = 0;
-  while (pointer <= arr.length - w ) {
-    console.log(arr.slice(pointer, pointer + w));
+  while (pointer <= arr.length - w) {
     const max = findMaxInArray(arr.slice(pointer, pointer + w));
     winArray.push(max);
     pointer++;
@@ -42,7 +48,54 @@ function getMaxWinowArray(arr, w) {
 }
 
 
-const arr = [3,5,10,5,6,8,9];
+import DoubleEndedQueue from '../data-structure/double-ended-queue';
+
+function getMaxWindowByQueue(arr, width) {
+
+  function compareQueue(arr, index, queue, width) {
+    // Judge the queue last
+    let i = 0;
+    let len = queue.length;
+    if (index < width - 1) {
+      queue.addBack(index);
+      return null;
+    }
+
+    while (i < len) {
+      const lastPointer = queue.getLast();
+      if (lastPointer !== null && arr[lastPointer] < arr[index]) {
+        queue.popBack();
+        if (queue.length === 0) {
+          queue.addBack(index);
+        }
+        i++;
+        continue;
+      } else {
+        queue.addBack(index);
+        break;
+      }
+    }
+    // First element is invalid
+    const firstIndex = queue.getFirst();
+    if (firstIndex <= index - width) {
+      queue.popFront();
+    }
+    return arr[queue.getFirst()];
+  }
+  const result = [];
+  const queue = new DoubleEndedQueue();
+  let pointer = 0;
+  while (pointer < arr.length) {
+    const max = compareQueue(arr, pointer, queue, width);
+    if (max !== null) {
+      result.push(max);
+    }
+    pointer++;
+  }
+  return result;
+}
+const arr = [3, 5, 10, 5, 6, 8, 9];
 const w = 3;
-const res = getMaxWinowArray(arr,w);
-console.log(res);
+const res1 = getMaxWinowArray(arr, w);
+const res2 = getMaxWindowByQueue(arr, w);
+console.log(res1, res2);
