@@ -32,6 +32,7 @@ Data structures implemented in Javascript.
 * Queue of dogs and cats
 * Hanoi Tower with order implemented by recursion
 * Hanoi Tower with order implemented by stack
+* Get max numbers in the `window` of an array
 
 # How to run
 
