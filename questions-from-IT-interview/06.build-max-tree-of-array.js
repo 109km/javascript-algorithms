@@ -29,38 +29,94 @@ public class Node {
 import Stack from '../data-structure/stack';
 import HashMap from '../data-structure/hash-table';
 
-function bulidMaxTree(arr) {
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
 
-  const stack = new Stack();
+
+
+function bulidMaxTree(arr) {
+  let root = null;
+  function processHashMapAndData(map, key, parent) {
+    map.set(key, parent);
+  }
+  const nodeArr = Array.map(arr, n => {
+    return new Node(n);
+  });
+  const leftStack = new Stack();
+  const rightStack = new Stack();
   const leftHashMap = new HashMap();
   const rightHashMap = new HashMap();
 
   // Loop from left to right, find the first bigger number
-  for (let i = 0; i < arr.length; i++) {
-    if (stack.isEmpty()) {
-      stack.push(arr[i]);
+  for (let i = 0; i < nodeArr.length; i++) {
+    const currentNode = nodeArr[i];
+    while (!leftStack.isEmpty() && leftStack.getTop().data < currentNode.data) {
+      leftStack.pop();
+    }
+    if (leftStack.isEmpty()) {
+      processHashMapAndData(leftHashMap, currentNode.data, null);
+      leftStack.push(currentNode);
       continue;
     }
-
-    while (!stack.isEmpty() && stack.getTop() < arr[i]) {
-      const stackTop = stack.getTop();
-      if (stackTop < arr[i]) {
-        stack.pop();
-      }
+    if (leftStack.getTop().data > currentNode.data) {
+      processHashMapAndData(leftHashMap, currentNode.data, leftStack.getTop());
+      leftStack.push(currentNode);
     }
-
-
-
   }
-
-
-
-
-
-
   // Loop from right to left, find the first bigger number
   // And now we know each node's parent, and the root node.
+  for (let i = nodeArr.length - 1; i >= 0; i--) {
+    const currentNode = nodeArr[i];
+    while (!rightStack.isEmpty() && rightStack.getTop().data < currentNode.data) {
+      rightStack.pop();
+    }
+    if (rightStack.isEmpty()) {
+      processHashMapAndData(rightHashMap, currentNode.data, null);
+      rightStack.push(currentNode);
+      continue;
+    }
+    if (rightStack.getTop().data > currentNode.data) {
+      processHashMapAndData(rightHashMap, currentNode.data, rightStack.getTop());
+      rightStack.push(currentNode);
+      continue;
+    }
+  }
 
   // Start to build the tree.
-
+  for (let i = 0; i < arr.length; i++) {
+    const key = arr[i];
+    const leftParent = leftHashMap.get(key);
+    const rightParent = rightHashMap.get(key);
+    console.log(key, leftParent, rightParent);
+    // root node
+    if (leftParent === null && rightParent === null) {
+      root = nodeArr[i];
+      continue;
+    }
+    if (leftParent === null && rightParent !== null) {
+      rightParent.left = nodeArr[i];
+      continue;
+    }
+    if (rightParent === null && leftParent !== null) {
+      leftParent.right = nodeArr[i];
+      continue;
+    }
+    if (leftParent.data > rightParent.data) {
+      rightParent.left = nodeArr[i];
+    }
+    if (leftParent.data < rightParent.data) {
+      leftParent.right = nodeArr[i];
+    }
+  }
+  return root;
 }
+
+
+const arr = [2, 3, 5, 1, 4];
+const root = bulidMaxTree(arr);
+console.log('root:', root);

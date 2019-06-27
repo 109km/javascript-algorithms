@@ -34,8 +34,7 @@ export default class SinglelyLinkedList {
       if (callback && callback(current)) {
         return current;
       }
-
-      if (typeof data !== 'undefined' && current.data === data) {
+      if (data !== null && current.data === data) {
         return current;
       }
       current = current.next;
@@ -67,7 +66,7 @@ export default class SinglelyLinkedList {
         current = current.next;
       }
     }
-    
+
   }
   insertAfter(data, toNodeData) {
     let afterNode = this.find(toNodeData);

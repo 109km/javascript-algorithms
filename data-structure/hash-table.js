@@ -1,6 +1,6 @@
 import SinglelyLinkedList from "./singlely-linked-list";
 
-class HashTable {
+export default class HashTable {
   constructor(size = 32) {
     this.buckets = Array.from({ length: size }, (n) => { return new SinglelyLinkedList() });
     this.keys = {};
@@ -22,7 +22,7 @@ class HashTable {
   _getBaseInfoByKey(key) {
     const hashKey = this.hash(key);
     const brucketLinkedList = this.buckets[hashKey];
-    const node = brucketLinkedList.find(null, node => { node.data.key === key });
+    const node = brucketLinkedList.find(null, node => { return node.data.key === key });
     return {
       hashKey,
       brucketLinkedList,
@@ -83,9 +83,9 @@ class HashTable {
 
 }
 
-const table = new HashTable();
-table.set('name', 'shao');
-table.set('range', '20-30');
-table.set('age', '20');
+// const table = new HashTable();
+// table.set('name', 'shao');
+// table.set('range', '20-30');
+// table.set('age', '20');
 
-table.print();
+// table.print();
