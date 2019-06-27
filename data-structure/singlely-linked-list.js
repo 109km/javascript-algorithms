@@ -45,10 +45,17 @@ export default class SinglelyLinkedList {
   remove(data) {
     let current = this.head;
     let removedNode;
+
     // remove the head
-    if (current.data === this.head.data) {
+    if (data === this.head.data) {
       removedNode = this.head;
       this.head = this.head.next;
+      return removedNode;
+    }
+    // remove the tail
+    if (current.next === null && current.data === data) {
+      removedNode = this.tail;
+      this.tail = current;
       return removedNode;
     }
     while (current.next !== null) {
@@ -60,12 +67,7 @@ export default class SinglelyLinkedList {
         current = current.next;
       }
     }
-    // remove the tail
-    if (current.next === null && current.data === data) {
-      removedNode = this.tail;
-      this.tail = current;
-      return removedNode;
-    }
+    
   }
   insertAfter(data, toNodeData) {
     let afterNode = this.find(toNodeData);
@@ -80,4 +82,6 @@ export default class SinglelyLinkedList {
 // const list = new SinglelyLinkedList();
 // list.append(1);
 // list.append(2);
-// list.insertAfter('egg', 1);
+// list.append(3);
+// list.remove(1);
+// console.log(list);

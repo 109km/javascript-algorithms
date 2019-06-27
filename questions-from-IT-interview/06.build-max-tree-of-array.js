@@ -27,7 +27,41 @@
 
 
 import Stack from '../data-structure/stack';
+import HashMap from '../data-structure/hash-table';
+
 
 function bulidMaxTree(arr) {
-  
+
+  const stack = new Stack();
+  const leftHashMap = new HashMap();
+  const rightHashMap = new HashMap();
+
+  // Loop from left to right, find the first bigger number
+  for (let i = 0; i < arr.length; i++) {
+    if (stack.isEmpty()) {
+      stack.push(arr[i]);
+      continue;
+    }
+
+    while (!stack.isEmpty() && stack.getTop() < arr[i]) {
+      const stackTop = stack.getTop();
+      if (stackTop < arr[i]) {
+        stack.pop();
+      }
+    }
+
+
+
+  }
+
+
+
+
+
+
+  // Loop from right to left, find the first bigger number
+  // And now we know each node's parent, and the root node.
+
+  // Start to build the tree.
+
 }
