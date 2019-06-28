@@ -34,19 +34,21 @@ function maxRecFromBottom(heightArr) {
   let maxArea = 0;
   const stack = new Stack();
   function calculateMaxArea(x, stack, heightArr) {
-    let j = stack.pop();
+    let lastX = stack.pop();
     let k = stack.isEmpty() ? -1 : stack.getTop();
-    const currentArea = (x - k - 1) * heightArr[j];
+    const currentArea = (x - k - 1) * heightArr[lastX];
     return Math.max(maxArea, currentArea);;
   }
-
   for (let x = 0; x < heightArr.length; x++) {
     // `heightArr[x]` means each column's max height. 
+    // if current height smaller than 
     while (!stack.isEmpty() && heightArr[x] <= heightArr[stack.getTop()]) {
+      // This area is x-1 's area,not current one's.
       maxArea = calculateMaxArea(x, stack, heightArr);
     }
     stack.push(x);
   }
+  // Calculate the last one's area.
   while (!stack.isEmpty()) {
     maxArea = calculateMaxArea(heightArr.length, stack, heightArr);
   }
@@ -58,7 +60,7 @@ function maxRecFromBottom(heightArr) {
 const matrix = [
   [1, 1, 1, 0],
   [1, 1, 0, 1],
-  [1, 1, 1, 1]
+  [0, 1, 1, 1]
 ]
 const maxArea = getMaxMatrixArea(matrix);
 console.log(maxArea);
