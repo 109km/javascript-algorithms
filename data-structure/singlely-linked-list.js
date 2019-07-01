@@ -19,14 +19,29 @@ export default class SinglelyLinkedList {
     }
   }
   append(data) {
-    const newNode = new LinkedListNode(data);
-    if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
+    // 加入的数据也可是一个链表
+    if (data instanceof SinglelyLinkedList) {
+      if (this.head === null) {
+        this.head = data.head;
+        this.tail = data.tail;
+      } else {
+        this.tail.next = data.head;
+        this.tail = data.tail;
+        console.log(data.tail);
+      }
     } else {
-      this.tail.next = newNode;
-      this.tail = newNode;
+      const newNode = new LinkedListNode(data);
+      if (this.head === null) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.tail.next = newNode;
+        this.tail = newNode;
+      }
     }
+
+
+
   }
   find(data, callback) {
     let current = this.head;

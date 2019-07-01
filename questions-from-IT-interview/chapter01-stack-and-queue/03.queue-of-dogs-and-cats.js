@@ -10,7 +10,7 @@
  * 7. 用户可以调用isCatEmpty方法，检查队列中是否有cat类的实例。
  */
 
-import Queue from '../data-structure/queue';
+import Queue from '../../data-structure/queue';
 
 const PET_TYPES_DOG = 'DOG';
 const PET_TYPES_CAT = 'CAT';

@@ -5,7 +5,7 @@
  * 而是必须经过中间。求当塔有N层的时候，打印最优移动过程和最优移动总步数。
  */
 
-import Stack from '../data-structure/stack';
+import Stack from '../../data-structure/stack';
 
 // Using stacks represent towers.
 const Towers = {

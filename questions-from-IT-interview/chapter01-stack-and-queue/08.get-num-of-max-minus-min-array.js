@@ -8,7 +8,7 @@
  */
 
 
-import DoubleEndedQueue from '../data-structure/double-ended-queue';
+import DoubleEndedQueue from '../../data-structure/double-ended-queue';
 
 const arr = [2, 5, 4, 3, 4];
 const num = 3;

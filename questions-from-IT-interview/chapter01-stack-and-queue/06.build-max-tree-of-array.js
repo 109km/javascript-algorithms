@@ -26,8 +26,8 @@ public class Node {
  */
 
 
-import Stack from '../data-structure/stack';
-import HashMap from '../data-structure/hash-table';
+import Stack from '../../data-structure/stack';
+import HashMap from '../../data-structure/hash-table';
 
 class Node {
   constructor(data) {

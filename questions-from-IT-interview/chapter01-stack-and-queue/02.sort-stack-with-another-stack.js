@@ -4,7 +4,7 @@
  * 只许申请一个栈。除此之外，可以申请新的变量，但不能申请额外的数据结构。如何完成排序？
  */
 
-import Stack from "../data-structure/stack";
+import Stack from "../../data-structure/stack";
 
 function sort(stack) {
   const sortStack = new Stack();

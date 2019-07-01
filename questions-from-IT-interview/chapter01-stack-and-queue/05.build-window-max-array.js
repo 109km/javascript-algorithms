@@ -53,7 +53,7 @@ function getMaxWindowArray(arr, w) {
  * Implemented by double-ended-queue
  */
 
-import DoubleEndedQueue from '../data-structure/double-ended-queue';
+import DoubleEndedQueue from '../../data-structure/double-ended-queue';
 
 function getMaxWindowByQueue(arr, width) {
 

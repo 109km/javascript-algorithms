@@ -5,7 +5,7 @@
  */
 
 
-import Stack from '../data-structure/stack';
+import Stack from '../../data-structure/stack';
 
 class StackWithMinAndReverse extends Stack {
   constructor() {

@@ -8,7 +8,7 @@
 其中，最大的矩形区域有6个1，所以返回6。
  */
 
-import Stack from '../data-structure/stack';
+import Stack from '../../data-structure/stack';
 
 function getMaxMatrixArea(matrix) {
   let maxArea = 0;
