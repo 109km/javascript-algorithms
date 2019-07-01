@@ -27,12 +27,22 @@ Data structures implemented in Javascript.
 * tree
 
 ## Questions from 《IT-Interview》
+
+### Stack & queue
+
 * Stack with `getMin` and `reverse`
 * Stack with `sort` implemented by another stack
 * Queue of dogs and cats
 * Hanoi Tower with order implemented by recursion
 * Hanoi Tower with order implemented by stack
 * Get max numbers in the `window` of an array
+* Get the max area of a matrix
+* Get number of sub-arraies which suits the equation: `max - min <= num`
+
+### Linked list
+* Print the common part of two ordered linked list
+
+
 
 # How to run
 
