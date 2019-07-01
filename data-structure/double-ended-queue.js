@@ -5,16 +5,16 @@ export default class DoubleEndedQueue {
   get length() {
     return this.elements.length;
   }
-  addFront(element) {
+  addFirst(element) {
     this.elements.unshift(element);
   }
-  addBack(element) {
+  addLast(element) {
     this.elements.push(element);
   }
-  popBack() {
+  popLast() {
     return this.elements.pop();
   }
-  popFront() {
+  popFirst() {
     return this.elements.shift();
   }
   getFirst() {

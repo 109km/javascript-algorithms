@@ -22,7 +22,7 @@
  * @param {Array} arr The origin array
  * @param {Number} w The window's width
  */
-function getMaxWinowArray(arr, w) {
+function getMaxWindowArray(arr, w) {
   function findMaxInArray(arr) {
     let max = null;
     let len = arr.length;
@@ -62,28 +62,28 @@ function getMaxWindowByQueue(arr, width) {
     let i = 0;
     let len = queue.length;
     if (index < width - 1) {
-      queue.addBack(index);
+      queue.addLast(index);
       return null;
     }
     // Check the queue.
     while (i < len) {
       const lastPointer = queue.getLast();
       if (lastPointer !== null && arr[lastPointer] < arr[index]) {
-        queue.popBack();
+        queue.popLast();
         if (queue.length === 0) {
-          queue.addBack(index);
+          queue.addLast(index);
         }
         i++;
         continue;
       } else {
-        queue.addBack(index);
+        queue.addLast(index);
         break;
       }
     }
     // First element is invalid
     const firstIndex = queue.getFirst();
     if (firstIndex <= index - width) {
-      queue.popFront();
+      queue.popFirst();
     }
     return arr[queue.getFirst()];
   }
@@ -101,6 +101,6 @@ function getMaxWindowByQueue(arr, width) {
 }
 const arr = [3, 5, 10, 5, 6, 8, 9];
 const w = 3;
-const res1 = getMaxWinowArray(arr, w);
+const res1 = getMaxWindowArray(arr, w);
 const res2 = getMaxWindowByQueue(arr, w);
 console.log(res1, res2);
