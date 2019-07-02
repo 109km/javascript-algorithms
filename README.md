@@ -41,6 +41,8 @@ Data structures implemented in Javascript.
 
 ### Linked list
 * Print the common part of two ordered linked list
+* Remove the `nth` node from tail
+* Remove the node at the position of `a/b`
 
 
 
