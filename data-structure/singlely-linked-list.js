@@ -9,6 +9,7 @@ export default class SinglelyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
+    this.length = 0;
   }
   prepend(data) {
     const newNode = new LinkedListNode(data);
@@ -17,6 +18,7 @@ export default class SinglelyLinkedList {
     if (this.tail === null) {
       this.tail = newNode;
     }
+    this.length++;
   }
   append(data) {
     // 加入的数据也可是一个链表
@@ -27,8 +29,8 @@ export default class SinglelyLinkedList {
       } else {
         this.tail.next = data.head;
         this.tail = data.tail;
-        console.log(data.tail);
       }
+      this.length += data.length;
     } else {
       const newNode = new LinkedListNode(data);
       if (this.head === null) {
@@ -38,6 +40,7 @@ export default class SinglelyLinkedList {
         this.tail.next = newNode;
         this.tail = newNode;
       }
+      this.length++;
     }
 
 
@@ -64,18 +67,21 @@ export default class SinglelyLinkedList {
     if (data === this.head.data) {
       removedNode = this.head;
       this.head = this.head.next;
+      this.length--;
       return removedNode;
     }
     // remove the tail
     if (current.next === null && current.data === data) {
       removedNode = this.tail;
       this.tail = current;
+      this.length--;
       return removedNode;
     }
     while (current.next !== null) {
       if (current.next.data === data) {
         removedNode = current.next;
         current.next = current.next.next;
+        this.length--;
         return removedNode;
       } else {
         current = current.next;
@@ -89,6 +95,7 @@ export default class SinglelyLinkedList {
       let newNode = new LinkedListNode(data);
       newNode.next = afterNode.next;
       afterNode.next = newNode;
+      this.length++;
     }
   }
 }

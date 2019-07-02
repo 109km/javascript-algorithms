@@ -12,10 +12,11 @@ class LinkedListNode {
   }
 }
 
-class DoublelyLinkedList {
+export default class DoublelyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
+    this.length = 0;
   }
   append(data) {
     let node = null;
@@ -27,6 +28,7 @@ class DoublelyLinkedList {
       node.setPrev(this.tail);
     }
     this.tail = node;
+    this.length++;
   }
   find(data, callback) {
     let current = this.head;
@@ -56,6 +58,7 @@ class DoublelyLinkedList {
     else {
       removeNode.prev.setNext(removeNode.next);
     }
+    this.length--;
     return removeNode;
   }
   insertAfter(toNodeData, data) {
@@ -65,16 +68,15 @@ class DoublelyLinkedList {
       afterNode.next.setPrev(newNode);
       afterNode.setNext(newNode);
       newNode.setNext(afterNode.next);
-    }else{
+      this.length++;
+    } else {
       console.error(`Node not found`);
     }
   }
 }
 
-const list = new DoublelyLinkedList();
-list.append(1);
-list.append(2);
-list.append(3);
-list.insertAfter(1, 4);
-
-console.log(list.find(4));
+// const list = new DoublelyLinkedList();
+// list.append(1);
+// list.append(2);
+// list.append(3);
+// list.insertAfter(1, 4);
