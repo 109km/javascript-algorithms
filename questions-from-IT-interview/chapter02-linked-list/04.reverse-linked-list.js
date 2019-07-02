@@ -5,20 +5,14 @@
 
 import SinglelyLinkedList from '../../data-structure/singlely-linked-list';
 import DoublelyLinkeList from '../../data-structure/doublely-linked-list';
-import Stack from '../../data-structure/stack';
 
 
 function reservseSinglelyLinkedList(linkedList) {
   const reversedLinkedList = new SinglelyLinkedList();
-  const stack = new Stack();
   let current = linkedList.head;
   while (current !== null) {
-    stack.push(current);
+    reversedLinkedList.prepend(current.data);
     current = current.next;
-  }
-
-  while (!stack.isEmpty()) {
-    reversedLinkedList.append(stack.pop().data);
   }
   return reversedLinkedList;
 }
