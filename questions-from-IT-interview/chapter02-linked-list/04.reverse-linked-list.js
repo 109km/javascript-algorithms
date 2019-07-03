@@ -17,6 +17,22 @@ function reservseSinglelyLinkedList(linkedList) {
   return reversedLinkedList;
 }
 
+function reservseSinglelyLinkedListWithoutReturn(linkedList) {
+  let prev = null;
+  let next = null;
+  let current = linkedList.head;
+  while (current != null) {
+    next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+  }
+  let newHead = linkedList.head;
+  linkedList.head = linkedList.tail;
+  linkedList.tail = newHead;
+  return linkedList;
+}
+
 function reverseDoublelyLinkedList(linkedList) {
   const reversedLinkedList = new DoublelyLinkeList();
   let current = linkedList.tail;
@@ -34,5 +50,5 @@ for (let i = 1; i <= 10; i++) {
   list1.append(i);
   list2.append(i);
 }
-console.log(reservseSinglelyLinkedList(list1));
+console.log(reservseSinglelyLinkedListWithoutReturn(list1));
 console.log(reverseDoublelyLinkedList(list2));
