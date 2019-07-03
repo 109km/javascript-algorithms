@@ -20,12 +20,22 @@ function reverseLinkedListFromTo(from, to, linkList) {
   let prevNode = null;
   let nextNode = null
 
-  while (currentIndex <= to) {
+  while (current !== null) {
     if (currentIndex === from - 1) {
       fromPrev = current;
     }
     if (currentIndex === from) {
       fromNode = current;
+    }
+    // When reach the end of the reverse part,
+    // we need to make the whole link connected.
+    if (currentIndex === to) {
+      fromPrev.next = current;
+      fromNode.next = current.next;
+    }
+    // The tail
+    if (to === linkList.length - 1) {
+      linkList.tail = current;
     }
     if (currentIndex >= from && currentIndex <= to) {
       nextNode = current.next;
@@ -35,21 +45,17 @@ function reverseLinkedListFromTo(from, to, linkList) {
     } else {
       current = current.next;
     }
-    // When reach the end of the reverse part,
-    // we need to make the whole link connected.
-    if (currentIndex === to) {
-      fromPrev.next = prevNode;
-      fromNode.next = current;
-    }
+
     currentIndex++;
   }
+
 
   return linkList;
 }
 
 const list = new SinglelyLinkedList();
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i <= 3; i++) {
   list.append(i);
 }
-reverseLinkedListFromTo(2, 4, list);
-console.log(list.head.next); // 0->1->4->3->2->5...
+reverseLinkedListFromTo(2, 3, list);
+console.log(list.tail); // 0->1->4->3->2->5...
