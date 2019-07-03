@@ -1,15 +1,13 @@
+import SinglelyLinkedList from './singlely-linked-list';
 class LinkedListNode {
   constructor(data) {
     this.data = data;
     this.next = null;
   }
 }
-
-export default class SinglelyLinkedList {
+export default class SinglelyLinkedListCircle extends SinglelyLinkedList {
   constructor() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
+    super();
   }
   prepend(data) {
     const newNode = new LinkedListNode(data);
@@ -17,6 +15,7 @@ export default class SinglelyLinkedList {
     this.head = newNode;
     if (this.tail === null) {
       this.tail = newNode;
+      this.tail.next = this.head;
     }
     this.length++;
   }
@@ -30,6 +29,7 @@ export default class SinglelyLinkedList {
         this.tail.next = data.head;
         this.tail = data.tail;
       }
+      this.tail.next = this.head;
       this.length += data.length;
     } else {
       const newNode = new LinkedListNode(data);
@@ -40,21 +40,9 @@ export default class SinglelyLinkedList {
         this.tail.next = newNode;
         this.tail = newNode;
       }
+      this.tail.next = this.head;
       this.length++;
     }
-  }
-  find(data, callback) {
-    let current = this.head;
-    while (current !== null) {
-      if (callback && callback(current)) {
-        return current;
-      }
-      if (data !== null && current.data === data) {
-        return current;
-      }
-      current = current.next;
-    }
-    return null;
   }
   remove(data) {
     let current = this.head;
@@ -65,12 +53,14 @@ export default class SinglelyLinkedList {
       removedNode = this.head;
       this.head = this.head.next;
       this.length--;
+      this.tail.next = this.head;
       return removedNode;
     }
     // remove the tail
     if (current.next === null && current.data === data) {
       removedNode = this.tail;
       this.tail = current;
+      this.tail.next = this.head;
       this.length--;
       return removedNode;
     }
@@ -79,33 +69,11 @@ export default class SinglelyLinkedList {
         removedNode = current.next;
         current.next = current.next.next;
         this.length--;
+        this.tail.next = this.head;
         return removedNode;
       } else {
         current = current.next;
       }
     }
-
-  }
-  insertAfter(data, toNodeData) {
-    let afterNode = this.find(toNodeData);
-    if (afterNode && data) {
-      let newNode = new LinkedListNode(data);
-      newNode.next = afterNode.next;
-      afterNode.next = newNode;
-      this.length++;
-    }
-  }
-  init(num, start = 0) {
-    let i = start;
-    for (; i < num; i++) {
-      this.append(i);
-    }
   }
 }
-
-// const list = new SinglelyLinkedList();
-// list.append(1);
-// list.append(2);
-// list.append(3);
-// list.remove(1);
-// console.log(list);
