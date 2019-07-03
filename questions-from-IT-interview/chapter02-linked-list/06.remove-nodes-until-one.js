@@ -63,12 +63,7 @@ function removeOtherNodesInMathematicalWay(linkList, gapNum) {
   }
 }
 
-function simple(linkList, gap) {
-  const total = linkList.length;
-  const targetPos = (total - 1) * gap - 1;
-
-  // find the target position's original position
-  /**
+/**
    * 01 02 xx 04 05 xx 07 08 xx 10
    * 11 xx xx 13 14 xx xx 16 xx 17
    * xx xx xx 19 20 xx xx xx xx 22
@@ -94,8 +89,6 @@ function simple(linkList, gap) {
    * 10 - (9 - 10 / 4) - 2 = 1
    */
 
-}
-
 function findLastPos(len, gap) {
   if (len === 1) {
     return 1;
@@ -108,7 +101,8 @@ function findLastPosMine(pos, total, gap, lastLeft) {
     return pos;
   }
   const newLeft = total - Math.floor(pos / gap);
-  const nextPos = pos - newLeft - (newLeft - lastLeft);
+  console.log(pos,newLeft,lastLeft);
+  const nextPos = pos - newLeft - ( newLeft - lastLeft);
   return findLastPosMine(nextPos, total, gap, newLeft);
 }
 
