@@ -31,9 +31,39 @@ function isPalindromicStructureByStack(linkedList) {
   return true;
 }
 
+function isPalindromicStructureByHalfStack(linkedList) {
+  const mid = Math.ceil(linkedList.length / 2);
+  const isEven = linkedList.length % 2 === 0 ? true : false;
+  const stack = new Stack();
+  let current = linkedList.head;
+  let index = 1;
+  while (current !== null) {
+    if (index < mid) {
+      stack.push(current);
+    }
+    if (index === mid && isEven) {
+      stack.push(current);
+    }
+    if (index > mid) {
+      const top = stack.pop();
+      if (top.data !== current.data) {
+        return false;
+      }
+    }
+    index++;
+    current = current.next;
+  }
+  return true;
+}
+
 const list = new SinglelyLinkedList();
 list.append(1);
 list.append(5);
 list.append(1);
+list.append(2);
+list.append(2);
+list.append(1);
+list.append(5);
+list.append(1);
 
-console.log(isPalindromicStructure(list));
+console.log(isPalindromicStructureByHalfStack(list));
