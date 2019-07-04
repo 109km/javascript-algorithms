@@ -10,7 +10,7 @@ import Stack from '../../data-structure/stack';
 // Using stacks represent towers.
 const Towers = {
   left: new Stack(),
-  mid: Stack(),
+  mid: new Stack(),
   right: new Stack()
 }
 
@@ -74,6 +74,6 @@ function move(n, to) {
 
 const LEVEL = 4;
 
-buildTower(LEVEL, leftTower);
+buildTower(LEVEL, Towers['left']);
 move(LEVEL, 'right');
 console.log(totalSteps);
