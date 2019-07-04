@@ -11,8 +11,14 @@
  * 进阶：如果链表节点数为N，想在时间复杂度为O（N）时完成原问题的要求，该怎么实现？
  */
 
+
 import CirclelySinglelyLinkedList from '../../data-structure/singlely-linked-list-circle';
 
+/**
+ * @desc This method's complexity is O(m*n)
+ * @param {CirclelySinglelyLinkedList} linkList 
+ * @param {Number} gapNum 
+ */
 function removeOtherNodes(linkList, gapNum) {
   if (gapNum <= 1) {
     throw new TypeError("`gapNum` must be bigger than 1.");
@@ -30,6 +36,11 @@ function removeOtherNodes(linkList, gapNum) {
   return linkList.head;
 }
 
+/**
+ * @desc This method's complexity is still O(m * n)
+ * @param {CirclelySinglelyLinkedList} linkList 
+ * @param {Number} gapNum 
+ */
 function removeOtherNodesInMathematicalWay(linkList, gapNum) {
 
   function testIsAbleLive(pos, gapNum, totalNumber) {
@@ -62,55 +73,80 @@ function removeOtherNodesInMathematicalWay(linkList, gapNum) {
     }
   }
 }
-
 /**
-   * 01 02 xx 04 05 xx 07 08 xx 10
-   * 11 xx xx 13 14 xx xx 16 xx 17
-   * xx xx xx 19 20 xx xx xx xx 22
-   * xx xx xx 23 xx xx xx xx xx 25
-   * xx xx xx 26 xx xx xx xx xx xx
-   * pos - (total - pos / gap) - ( thisLeft - lastLeft)
-   * 26 - (10 - 26 / 3) - 1 = 23 
-   * 
-   * 
-   * 01 02 03 xx 05 06 07 xx 09
-   * 10 11 xx xx 13 14 15 xx xx
-   * 17 18 xx xx 19 xx 21 xx xx
-   * 22 23 xx xx xx xx 25 xx xx
-   * 26 27 xx xx xx xx xx xx xx
-   * 29 30 xx xx xx xx xx xx xx
-   * 31 xx
-   * 
-   * 31 - (9 - 31 / 4) - 0 = 29
-   * 29 - (9 - 29 / 4) - 1 = 26
-   * 26 - (9 - 26 / 4) - 1 = 22
-   * 22 - (9 - 22 / 4 ) - 1 = 17
-   * 17 - (9 -  17 / 4) - 2 = 10
-   * 10 - (9 - 10 / 4) - 2 = 1
-   */
-
+ * @desc This method is from the book.
+ * It's complexity is O(n).
+ * And I can't understand this train of thought.
+ * @param {Number} len 
+ * @param {Number} gap 
+ */
 function findLastPos(len, gap) {
   if (len === 1) {
     return 1;
   }
+  // This is not tail recursion, costs too much memory.
   return (findLastPos(len - 1, gap) + gap - 1) % len + 1;
 }
 
-function findLastPosMine(pos, total, gap, lastLeft) {
+
+/**
+ * @desc len = 10 gap = 3
+ * 01 02 xx 04 05 xx 07 08 xx 10
+ * 11 xx xx 13 14 xx xx 16 xx 17
+ * xx xx xx 19 20 xx xx xx xx 22
+ * xx xx xx 23 xx xx xx xx xx 25
+ * xx xx xx 26 xx xx xx xx xx xx
+ * xx xx xx 28 xx xx xx xx xx xx
+ * 
+ * @desc len = 9 gap = 4
+ * 01 02 03 xx 05 06 07 xx 09
+ * 10 11 xx xx 13 14 15 xx xx
+ * 17 18 xx xx 19 xx 21 xx xx
+ * 22 23 xx xx xx xx 25 xx xx
+ * 26 27 xx xx xx xx xx xx xx
+ * 29 30 xx xx xx xx xx xx xx
+ * 31 xx
+ */
+
+
+/**
+ * @desc This method is created by me.
+ * The core idea is from the graph above:
+ * we can calculate that the final step is `(len-1) * gap + 1` ,
+ * so now our target is finding the initial number 
+ * based on the number of last step. 
+ * In the first example last step is 28. And initial number is 4.
+ * The pattern of step number is:
+ * `NextStepNumber = LastStepNumber + CountOfLeftNumberUntilLastStepNumber`
+ * Let's see the example again:
+ * `28 = 26 + (10 - Int(26 / 3))`
+ * The count of left numbers till 26 is 2, becasue we remove a number every 3 steps.
+ * So until 26 we have already removed `Int(26 / 3) = 8` numbers.
+ * According to the pattern above, we can use a recursive way to calculate the initial
+ * number directly.
+ * 
+ * @param {*} pos 
+ * @param {*} total 
+ * @param {*} gap 
+ * @param {*} lastLeft 
+ */
+function findPrevPos(pos, total, gap, lastLeft) {
   if (pos < total) {
     return pos;
   }
-  const newLeft = total - Math.floor(pos / gap);
-  console.log(pos,newLeft,lastLeft);
-  const nextPos = pos - newLeft - ( newLeft - lastLeft);
-  return findLastPosMine(nextPos, total, gap, newLeft);
+  const prevPos = pos - lastLeft;
+  const prevLeft = total - Math.floor(prevPos / gap);
+  // This is a tail recursion, costs only one stack-frame.
+  return findPrevPos(prevPos, total, gap, prevLeft);
 }
 
-console.log(findLastPosMine(26, 10, 3, 1));
+console.log(findPrevPos(28, 10, 3, 2));
 
 const list = new CirclelySinglelyLinkedList();
 list.init(10);
 removeOtherNodesInMathematicalWay(list, 3);
 console.log(list.head);
+
+
 
 
