@@ -123,8 +123,8 @@ function main() {
     randomNode(head, originHead);
     head = head.next;
   }
-  console.log(originHead.next);
   const newHead = copyLinkedListWithRand(originHead);
+  console.log(originHead.next);
   console.log(newHead.next);
 }
 main();
