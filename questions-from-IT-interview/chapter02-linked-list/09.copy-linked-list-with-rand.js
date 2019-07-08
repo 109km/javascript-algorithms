@@ -54,9 +54,53 @@ function copyLinkedListWithHashMap(head) {
   return map.get(head.data);
 }
 
+/**
+ * @description 
+ * This method needs to loop the linked list 3 times,
+ * but needs no extra data structure.
+ * @param {Node} head
+ */
+function copyLinkedListWithRand(head) {
+  let current = head;
+  let copiedCurrent = null;
+
+  // Put the copied nodes to the origin nodes' next.
+  while (current !== null) {
+    copiedCurrent = new Node(current.data);
+    copiedCurrent.next = current.next;
+    current.next = copiedCurrent;
+    current = copiedCurrent.next;
+  }
+
+  // Add rand to copied nodes
+  current = head;
+  while (current !== null) {
+    let currentRand = current.rand;
+    copiedCurrent = current.next;
+    copiedCurrent.rand = currentRand ? currentRand.next : null;
+    current = copiedCurrent.next;
+  }
+
+  // Split the copied nodes from the chain
+  current = head;
+  copiedCurrent = null;
+  let newHead = null;
+  while (current !== null) {
+    if (newHead === null) {
+      newHead = head.next;
+    }
+    copiedCurrent = current.next;
+    copiedCurrent.next = current.next.next;
+    current.next = current.next.next;
+    current = current.next;
+  }
+  return newHead;
+}
+
 // Set rand property to the node
-function randomNode(node, head) {
-  let num = Math.ceil(Math.random() * 20);
+function randomNode(node, originHead) {
+  let head = originHead;
+  let num = Math.ceil(Math.random() * 15);
   if (num <= 10) {
     for (let i = 0; i < num && head !== null; i++) {
       head = head.next;
@@ -79,8 +123,9 @@ function main() {
     randomNode(head, originHead);
     head = head.next;
   }
-  console.log(originHead);
-  console.log(copyLinkedListWithHashMap(originHead));
+  console.log(originHead.next);
+  const newHead = copyLinkedListWithRand(originHead);
+  console.log(newHead.next);
 }
 main();
 
