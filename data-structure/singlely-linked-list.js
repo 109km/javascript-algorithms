@@ -95,6 +95,21 @@ export default class SinglelyLinkedList {
       this.length++;
     }
   }
+  reverse() {
+    let prev = null;
+    let next = null;
+    let current = this.head;
+    while (current != null) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    let newHead = this.head;
+    this.head = this.tail;
+    this.tail = newHead;
+    return this;
+  }
   init(num, start = 0) {
     let i = start;
     for (; i < num; i++) {
