@@ -21,7 +21,7 @@ export default class SinglelyLinkedListCircle extends SinglelyLinkedList {
   }
   append(data) {
     // 加入的数据也可是一个链表
-    if (data instanceof SinglelyLinkedList) {
+    if (data instanceof SinglelyLinkedListCircle) {
       if (this.head === null) {
         this.head = data.head;
         this.tail = data.tail;
@@ -43,6 +43,13 @@ export default class SinglelyLinkedListCircle extends SinglelyLinkedList {
       this.tail.next = this.head;
       this.length++;
     }
+  }
+  setLoopPoint(data) {
+    let current = this.head;
+    while (current.data !== data) {
+      current = current.next;
+    }
+    this.tail.next = current;
   }
   remove(data) {
     let current = this.head;
