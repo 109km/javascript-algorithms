@@ -70,6 +70,7 @@ function reverseLinkedListEachKNodesByQueue(head, k) {
 /**
  * @description This method's space complexity is O(1)
  * it needs no queue or stack.
+ * And this method is from the book.
  * @param {Node} head 
  * @param {Number} k 
  */
