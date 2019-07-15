@@ -51,7 +51,7 @@ Data structures implemented in Javascript.
 * Copy the linked list with a `rand` pointer
 * Add two int linked list together
 * Find the first crossing node of two linked lists.
-
+* Reverse a linked list each `k` nodes.
 
 
 # How to run
