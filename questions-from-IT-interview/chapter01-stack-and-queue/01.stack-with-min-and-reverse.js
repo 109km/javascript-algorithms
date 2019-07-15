@@ -45,8 +45,8 @@ class StackWithMinAndReverse extends Stack {
     if (this.isEmpty()) {
       return elem;
     } else {
-      this.push(elem);
       const nextElem = this.getAndRemoveLastElement();
+      this.push(elem);
       return nextElem;
     }
   }
