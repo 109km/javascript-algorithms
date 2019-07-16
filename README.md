@@ -52,6 +52,7 @@ Data structures implemented in Javascript.
 * Add two int linked list together
 * Find the first crossing node of two linked lists.
 * Reverse a linked list each `k` nodes.
+* Remove the duplicate nodes in a linked list.
 
 
 # How to run
