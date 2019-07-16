@@ -110,9 +110,9 @@ export default class SinglelyLinkedList {
     this.tail = newHead;
     return this;
   }
-  init(num, start = 0) {
+  init(start = 1, end = 10) {
     let i = start;
-    for (; i < num; i++) {
+    for (; i <= end; i++) {
       this.append(i);
     }
   }

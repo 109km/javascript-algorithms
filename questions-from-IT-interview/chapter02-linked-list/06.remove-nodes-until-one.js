@@ -143,7 +143,7 @@ function findPrevPos(pos, total, gap, lastLeft) {
 console.log(findPrevPos(28, 10, 3, 2));
 
 const list = new CirclelySinglelyLinkedList();
-list.init(10);
+list.init(1, 10);
 removeOtherNodesInMathematicalWay(list, 3);
 console.log(list.head);
 
