@@ -19,42 +19,51 @@ class TreeNode {
 }
 /**
  * @description This method uses the recursive way,
- * if the tree's depth is `h`, then 
+ * if the tree's depth is `h`, then space complexity is O(h),
+ * time complexity is O(N)
  * @param {TreeNode} treeRoot The root of a binary search tree.
  */
 function convertSearchBinaryTreeToDoublelyLinkedList(treeRoot) {
 
-  function combineLeftNodes(treeNode) {
-    let largestNode = new DoublelyLinkedListNode(treeNode.data);
-    if (treeNode.left !== null) {
-      largestNode = combineLeftNodes(treeNode.left);
+  function process(head) {
+    if (head === null) {
+      return null;
     }
-    return largestNode;
-  }
-
-  function combineRightNodes(treeNode) {
-    let smallestNode = new DoublelyLinkedListNode(treeNode.data);
-    if (treeNode.right !== null) {
-      smallestNode = combineRightNodes(treeNode.right);
+    let leftEnd = process(head.left);
+    let rightEnd = process(head.right);
+    let leftStart = leftEnd !== null ? leftEnd.right : null;
+    let rightStart = rightEnd !== null ? rightEnd.right : null;
+    if (leftEnd !== null && rightEnd !== null) {
+      leftEnd.right = head;
+      head.left = leftEnd;
+      head.right = rightStart;
+      rightStart.left = head;
+      rightEnd.right = leftStart;
+      return rightEnd;
+    } else if (leftEnd !== null) {
+      leftEnd.right = head;
+      head.left = leftEnd;
+      head.right = leftStart;
+      return head;
+    } else if (rightEnd !== null) {
+      head.right = rightStart;
+      rightStart.left = head;
+      rightEnd.right = head;
+      return rightEnd;
+    } else {
+      head.right = head;
+      return head;
     }
-    return smallestNode;
   }
 
-  function combineThree(rootNode) {
-    let left = rootNode.left;
-    let right = rootNode.right;
-    let middleNode = new DoublelyLinkedListNode(rootNode.data);
-
-    let leftLargetst = combineLeftNodes(left);
-    let rightSmallest = combineRightNodes(right);
-    middleNode.prev = leftLargetst;
-    leftLargetst.next = middleNode;
-    middleNode.next = rightSmallest;
-    rightSmallest.prev = middleNode;
-    return middleNode;
+  let head = treeRoot;
+  if (head === null) {
+    return null;
   }
-  const root = combineThree(treeRoot);
-  return root;
+  let last = process(head);
+  head = last.right;
+  last.right = null;
+  return head;
 }
 function main() {
 
