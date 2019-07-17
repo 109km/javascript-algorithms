@@ -25,6 +25,8 @@ function addNodeToCirclelySortedLinkedList(head, num) {
         return head;
       } else {
         // This number is smaller than `head`
+        // It must be inserted after the tail and becomes
+        // the new head.
       }
     } else {
       prev = current;
