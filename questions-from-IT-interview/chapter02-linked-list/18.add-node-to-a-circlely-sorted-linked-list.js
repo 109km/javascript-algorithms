@@ -18,26 +18,22 @@ function addNodeToCirclelySortedLinkedList(head, num) {
   let newNode = null;
   while (current !== null) {
     if (num < current.data) {
-      if (prev !== null) {
+      if (prev !== null && num >= prev.data) {
         newNode = new Node(num);
         prev.next = newNode;
         newNode.next = current;
         return head;
-      } else {
-        // This number is smaller than `head`
-        // It must be inserted after the tail and becomes
-        // the new head.
       }
-    } else {
-      prev = current;
-      current = current.next;
     }
+    prev = current;
+    current = current.next;
+
     // The last node
     if (current === head && newNode === null) {
       newNode = new Node(num);
       prev.next = newNode;
       newNode.next = head;
-      return head;
+      return newNode;
     }
   }
 }
@@ -53,7 +49,7 @@ function main() {
   current = current.next;
   current.next = head;
 
-  let newHead = addNodeToCirclelySortedLinkedList(head, 10);
-  console.log(newHead.next.next.next);
+  let newHead = addNodeToCirclelySortedLinkedList(head, 1);
+  console.log(newHead);
 }
 main();
