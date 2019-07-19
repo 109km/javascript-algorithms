@@ -125,10 +125,10 @@ function findLastPos(len, gap) {
  * According to the pattern above, we can use a recursive way to calculate the initial
  * number directly.
  * 
- * @param {*} pos 
- * @param {*} total 
- * @param {*} gap 
- * @param {*} lastLeft 
+ * @param {Number} pos 
+ * @param {Number} total 
+ * @param {Number} gap 
+ * @param {Number} lastLeft 
  */
 function findPrevPos(pos, total, gap, lastLeft) {
   if (pos < total) {
