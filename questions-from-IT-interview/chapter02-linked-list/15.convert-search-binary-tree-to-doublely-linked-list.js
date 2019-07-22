@@ -8,7 +8,6 @@
  * 对于任何一个节点来说左子树的所有节点都比自己小，而右子树上所有节点都比自己大
  */
 
-import { LinkedListNode as DoublelyLinkedListNode } from '../../data-structure/doublely-linked-list';
 
 class TreeNode {
   constructor(data) {
@@ -21,6 +20,15 @@ class TreeNode {
  * @description This method uses the recursive way,
  * if the tree's depth is `h`, then space complexity is O(h),
  * time complexity is O(N)
+ * This method's core thinking is building the doublely-linked-list
+ * according to the current tree's structure.
+ * No matter the tree has 3 nodes or even only 1 node, it will be
+ * converted to a doublely linked list, and also it will be the parameter
+ * of the upper level.
+ * In this recursive way the function `process` can build the whole linked list,
+ * and return the last node.
+ * 
+ * 
  * @param {TreeNode} treeRoot The root of a binary search tree.
  */
 function convertSearchBinaryTreeToDoublelyLinkedList(treeRoot) {
