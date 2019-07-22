@@ -53,6 +53,13 @@ Data structures implemented in Javascript.
 * Find the first crossing node of two linked lists.
 * Reverse a linked list each `k` nodes.
 * Remove the duplicate nodes in a linked list.
+* Remove the nodes by given value.
+* Convert a search binary tree to a doublely linked list.
+* Selection sort of a singlely linked list.
+* Quirky ways of removing nodes in a linked list.
+* Insert nodes into a sorted circlely linked list.
+* Merge two sorted linked list.
+* Re-sort a singly linked list by left part and right part.
 
 
 # How to run
