@@ -1,12 +1,5 @@
 import Tree from './tree';
-
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.left = null;
-    this.right = null;
-  }
-}
+import Node from './binary-tree-node';
 
 export default class BinaryTree extends Tree {
   constructor() {
