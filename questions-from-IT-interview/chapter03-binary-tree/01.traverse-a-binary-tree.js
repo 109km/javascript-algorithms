@@ -28,6 +28,7 @@ function traverseBinaryTreeByOrderWithStack(root, order) {
   const stack = new Stack();
   const initRoot = root;
   let current = initRoot;
+
   if (order === 'pre') {
     stack.push(current);
     while (!stack.isEmpty()) {
@@ -43,7 +44,37 @@ function traverseBinaryTreeByOrderWithStack(root, order) {
   }
 
   if (order === 'in') {
-    
+    const loopLeft = (current) => {
+      while (current !== null) {
+        stack.push(current);
+        current = current.left;
+      }
+    }
+    loopLeft(current);
+    while (!stack.isEmpty()) {
+      current = stack.pop();
+      if (current.right !== null) {
+        loopLeft(current.right);
+      } else {
+        console.log(current.data);
+      }
+    }
+  }
+
+  if (order === 'post') {
+    let top = null, out = initRoot;
+    stack.push(initRoot);
+    while (!stack.isEmpty()) {
+      top = stack.getTop();
+      if (top.left !== null && out !== top.left && out !== top.right) {
+        stack.push(top.left);
+      } else if (top.right !== null && out !== top.right) {
+        stack.push(top.right);
+      } else {
+        out = stack.pop();
+        console.log(out.data);
+      }
+    }
   }
 
 }
@@ -60,8 +91,8 @@ function main() {
   root.addLeft(5).addRight(15);
   root.left.addLeft(3).addRight(6);
   root.right.addLeft(12).addRight(28);
-  // traverseBinaryTreeByOrder(root, 'pre');
-  traverseBinaryTreeByOrderWithStack(root, 'pre');
+  // traverseBinaryTreeByOrder(root, 'post');
+  traverseBinaryTreeByOrderWithStack(root, 'post');
 }
 
 main();
