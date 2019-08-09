@@ -39,7 +39,7 @@ function checkIsLineOrCyclic(list) {
 }
 
 /**
- * @description This function's complexity is O(m+n)
+ * @description This function's time complexity is O(m+n)
  * @param {SinglelyLinkedList} list1 
  * @param {SinglelyLinkedList} list2 
  */
@@ -52,11 +52,11 @@ function _findCrossingPointInLineWithStack(list1, list2) {
   let current2 = list2.head;
   const stack1 = new Stack();
   const stack2 = new Stack();
-  while (current1 != null) {
+  while (current1 !== null) {
     stack1.push(current1);
     current1 = current1.next;
   }
-  while (current2 != null) {
+  while (current2 !== null) {
     stack2.push(current2);
     current2 = current2.next;
   }
@@ -75,9 +75,9 @@ function _findCrossingPointInLineWithStack(list1, list2) {
  * @param {SinglelyLinkedList} list1 
  * @param {SinglelyLinkedList} list2 
  */
-function _findCrossingPointInLineWithoutStack(list1, list2) {
+// function _findCrossingPointInLineWithoutStack(list1, list2) {
 
-}
+// }
 
 /**
  * @description This is just a transfer function, easily to switch the real called functions.
