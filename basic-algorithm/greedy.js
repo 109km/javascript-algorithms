@@ -63,6 +63,7 @@ function bagProblemInGreedy() {
     return product.value / product.weight;
   }
 
+  // 局部最优：选择当前单位质量价值最高的物品
   function findTheMostValuableProduct(arr) {
     let mostValueProduct = null;
     let currentIndex = 0;
@@ -82,16 +83,16 @@ function bagProblemInGreedy() {
 
   while (true) {
     let { mostValueProduct, currentIndex } = findTheMostValuableProduct(products);
-    if (mostValueProduct) {
-      if (currentWeight + mostValueProduct.weight > 150) {
-        break;
-      } else {
-        products.splice(currentIndex, 1);
-        res.push(mostValueProduct.name);
-        currentWeight = currentWeight + mostValueProduct.weight;
-      }
-    } else {
+    let newWeight = currentWeight + mostValueProduct.weight;
+    if (mostValueProduct == null) {
       break;
+    }
+    if (newWeight > 150) {
+      break;
+    } else {
+      products.splice(currentIndex, 1);
+      res.push(mostValueProduct.name);
+      currentWeight = newWeight;
     }
   }
 
