@@ -1,19 +1,20 @@
 export default class LRUCache {
   constructor(max) {
     this.max = max;
-    this.cache = {};
-    this.currentSize = 0;
+    this.cache = new Map();
   }
   get(key) {
-    return this.cache[key] || -1;
+    const value = this.cache.get(key);
+    if (!value) return -1;
+    this.cache.delete(key);
+    this.cache.set(key,value);
+    return value;
   }
   put(key, value) {
-
-    if (this.currentSize === this.max) {
-
+    if (cache.size > this.max) {
+      const oldestKey = this.cache.keys.next().value;
+      cache.delete(oldestKey);
     }
-
-    this.cache[key] = value;
-    this.currentSize += 1;
+    this.cache.set(key,value);
   }
 }
