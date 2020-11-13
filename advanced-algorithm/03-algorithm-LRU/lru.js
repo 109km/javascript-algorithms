@@ -12,7 +12,7 @@ export default class LRUCache {
   }
   put(key, value) {
     if (cache.size > this.max) {
-      const oldestKey = this.cache.keys.next().value;
+      const oldestKey = this.cache.keys().next().value;
       cache.delete(oldestKey);
     }
     this.cache.set(key,value);
