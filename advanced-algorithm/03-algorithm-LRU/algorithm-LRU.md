@@ -189,3 +189,34 @@ cache.get(2);   // Return -1
 cache.get(3);   // Return 3
 cache.put(4,4); // Makes 1 unavailble
 ```
+
+Here is the solution, by using `Map`.
+
+`Map`'s bottom implementation is `LinkedHashMap` which is an ordered HashMap.
+
+Each time we `set` a value to the `Map`, the new value will be added to the end of the chain.
+
+And as we know, a HashMap's time complexity is O(1).(Best situation).
+
+```js
+export default class LRUCache {
+  constructor(max) {
+    this.max = max;
+    this.cache = new Map();
+  }
+  get(key) {
+    const value = this.cache.get(key);
+    if (!value) return -1;
+    this.cache.delete(key);
+    this.cache.set(key, value);
+    return value;
+  }
+  put(key, value) {
+    if (cache.size > this.max) {
+      const oldestKey = this.cache.keys().next().value;
+      cache.delete(oldestKey);
+    }
+    this.cache.set(key, value);
+  }
+}
+```

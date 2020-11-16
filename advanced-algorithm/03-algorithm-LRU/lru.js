@@ -7,7 +7,7 @@ export default class LRUCache {
     const value = this.cache.get(key);
     if (!value) return -1;
     this.cache.delete(key);
-    this.cache.set(key,value);
+    this.cache.set(key, value);
     return value;
   }
   put(key, value) {
@@ -15,6 +15,6 @@ export default class LRUCache {
       const oldestKey = this.cache.keys().next().value;
       cache.delete(oldestKey);
     }
-    this.cache.set(key,value);
+    this.cache.set(key, value);
   }
 }
