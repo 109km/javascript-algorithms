@@ -62,10 +62,33 @@ class SinglyLinkedList {
   }
 }
 
-const list = new SinglyLinkedList();
+const list1 = new SinglyLinkedList();
+list1.append(1);
+list1.append(2);
+list1.append(4);
 
-list.append(1);
-list.append(2);
-list.append(3);
-list.remove(2);
-console.log(list.head);
+const list2 = new SinglyLinkedList();
+list2.append(3);
+list2.append(4);
+list2.append(6);
+list2.append(8);
+
+const mergedList = new SinglyLinkedList();
+let pointer1 = list1.head;
+let pointer2 = list2.head;
+
+while (true) {
+  // Both linked list reached the end.
+  if (pointer1 === null && pointer2 === null) {
+    break;
+  }
+
+
+  if (pointer2.data > pointer1.data) {
+
+  }
+
+
+}
+
+console.log(mergedList.head);
