@@ -19,9 +19,9 @@ According to the features, we can write some sample code on it.
 ```js
 // Class defination of the singly linked list node.
 class SinglyLinkedListNode {
-  constructor(data, next) {
+  constructor(data) {
     this.data = data;
-    this.next = next;
+    this.next = null;
   }
 }
 // Creat the head node.
@@ -106,5 +106,9 @@ class SinglyLinkedList {
 
 This type of linked list only has a little difference with `SinglyLinkedList` which is each `node` has one more property : `prev` points to the previous `node`.
 
-![Singly Linked List](./doublely-linked-list.drawio.svg)
+![Doublely Linked List](./doublely-linked-list.drawio.svg)
+
+The code won't be showed here, hope readers can try to implement it.
+
+## Circular Linked List
 

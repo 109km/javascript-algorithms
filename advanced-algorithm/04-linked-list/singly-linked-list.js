@@ -1,7 +1,7 @@
 class SinglyLinkedListNode {
-  constructor(data, next) {
+  constructor(data) {
     this.data = data;
-    this.next = next || null;
+    this.next = null;
   }
 }
 
@@ -15,7 +15,7 @@ class SinglyLinkedList {
     return this.size;
   }
   append(data) {
-    const node = new SinglyLinkedListNode(data, null);
+    const node = new SinglyLinkedListNode(data);
     // List is empty
     if (this.head === null) {
       this.head = node;
