@@ -102,13 +102,31 @@ class SinglyLinkedList {
 }
 ```
 
-## Doublely Linked List
+## Doubly Linked List
 
 This type of linked list only has a little difference with `SinglyLinkedList` which is each `node` has one more property : `prev` points to the previous `node`.
 
-![Doublely Linked List](./doublely-linked-list.drawio.svg)
+![Doubly Linked List](./doubly-linked-list.drawio.svg)
 
 The code won't be showed here, hope readers can try to implement it.
 
 ## Circular Linked List
+
+Let's take a look at the structures of circular linked lists.
+
+![Circular Linked List](./circular-linked-list.drawio.svg)
+
+As we can see, there're two types of circular linked lists: 
+
+1. Circular singly linked list.
+2. Circular doubly linked list.
+
+## A question from leetcode
+
+Merge two ascending singly linked list, and the new linked list must contain all nodes in the two linked list.
+
+```
+Input : 1->2->4 , 3->4->8
+Output: 1->2->3->4->4->8
+```
 
