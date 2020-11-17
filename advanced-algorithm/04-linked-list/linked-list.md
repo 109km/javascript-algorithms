@@ -129,11 +129,3 @@ Merge two ascending singly linked list, and the new linked list must contain all
 Input : 1->2->4 , 3->4->8
 Output: 1->2->3->4->4->8
 ```
-
-Answer:
-
-```js
-
-var list1 = new SinglyLinkedList();
-
-```
