@@ -78,17 +78,31 @@ let pointer1 = list1.head;
 let pointer2 = list2.head;
 
 while (true) {
-  // Both linked list reached the end.
+  // Both linked lists reach the end.
   if (pointer1 === null && pointer2 === null) {
     break;
   }
 
-
-  if (pointer2.data > pointer1.data) {
-
+  // One list reaches the end
+  if (pointer1 === null && pointer2 !== null) {
+    mergedList.append(pointer2.data);
+    pointer2 = pointer2.next;
+    continue;
+  }
+  if (pointer2 === null && pointer1 !== null) {
+    mergedList.append(pointer1.data);
+    pointer1 = pointer1.next;
+    continue;
   }
 
-
+  // Compare the value, append smaller value first.
+  if (pointer2.data > pointer1.data) {
+    mergedList.append(pointer1.data);
+    pointer1 = pointer1.next;
+  } else {
+    mergedList.append(pointer2.data);
+    pointer2 = pointer2.next;
+  }
 }
 
 console.log(mergedList.head);

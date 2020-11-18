@@ -129,3 +129,50 @@ Merge two ascending singly linked list, and the new linked list must contain all
 Input : 1->2->4 , 3->4->8
 Output: 1->2->3->4->4->8
 ```
+
+One example answer:
+
+```js
+const list1 = new SinglyLinkedList();
+list1.append(1);
+list1.append(2);
+list1.append(4);
+
+const list2 = new SinglyLinkedList();
+list2.append(3);
+list2.append(4);
+list2.append(6);
+list2.append(8);
+
+const mergedList = new SinglyLinkedList();
+let pointer1 = list1.head;
+let pointer2 = list2.head;
+
+while (true) {
+  // Both linked lists reach the end.
+  if (pointer1 === null && pointer2 === null) {
+    break;
+  }
+
+  // One list reaches the end
+  if (pointer1 === null && pointer2 !== null) {
+    mergedList.append(pointer2.data);
+    pointer2 = pointer2.next;
+    continue;
+  }
+  if (pointer2 === null && pointer1 !== null) {
+    mergedList.append(pointer1.data);
+    pointer1 = pointer1.next;
+    continue;
+  }
+
+  // Compare the value, append smaller value first.
+  if (pointer2.data > pointer1.data) {
+    mergedList.append(pointer1.data);
+    pointer1 = pointer1.next;
+  } else {
+    mergedList.append(pointer2.data);
+    pointer2 = pointer2.next;
+  }
+}
+```
