@@ -104,5 +104,9 @@ plusOne(2);
 
 When JavaScript starts to run, the global context is like `main` in `C`.
 
+The call stack working flow:
 
+![call-stack](./call-stack.drawio.svg)
+
+The right column shows how the call stack changes.
 
