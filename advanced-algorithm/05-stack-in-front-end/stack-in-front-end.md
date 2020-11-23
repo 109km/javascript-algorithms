@@ -82,3 +82,27 @@ setTimeout(()=>{
 
 console.log('Print first'); // sync task
 ```
+
+## Call Stack
+
+A `call stack` is used to manage the order of function calls.
+
+It records the position of the program is at.
+
+```js
+var a = 1;
+
+// function defination
+function plusOne(b){
+  var c = 0;
+  return a + b + c;
+}
+
+// function call
+plusOne(2);
+```
+
+When JavaScript starts to run, the global context is like `main` in `C`.
+
+
+
