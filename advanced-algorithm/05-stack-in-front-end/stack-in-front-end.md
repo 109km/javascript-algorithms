@@ -110,3 +110,23 @@ The call stack working flow:
 
 The right column shows how the call stack changes.
 
+We can use `console.trace` to trace a function call stacks:
+
+```js
+function double(n){
+  console.trace("Tracing function `double`");
+  return n * 2;
+}
+function calculate(n){
+  return double(n) + 1;
+}
+calculate(1);
+```
+The code will print:
+
+![console-trace.jpg](./console-trace.jpg)
+
+We can find `double` is on the top, then `calculate`, and `anonymous` means `calculate` is called in the global context.
+
+The numbers `2,4,6` show the line numbers of the code that each context starts at.
+
