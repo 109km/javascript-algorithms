@@ -216,3 +216,7 @@ All the new objects are added to the `objects area`, when this area is full, gab
 3. Object promotion: if some active objects are still active after gabage cleaning twice.
 
 **Main recoverer**
+
+`Old generation space` includes active objects from `new generation space` and large objects.
+
+So Scavenge algorithm is not suitale here.
