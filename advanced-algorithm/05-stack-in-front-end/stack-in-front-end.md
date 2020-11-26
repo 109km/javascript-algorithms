@@ -176,3 +176,43 @@ console.log(o2); // o2.age is 2, because o1 and o2 points to the same address in
 
 ## Garbage recycling
 
+Garbage memory is recycled automatically in JavaScript. So many developers don't know the its mechanism.
+
+### Recycle stack space
+
+The main process uses an ESP pointer, it points to the executing context. When current function is executed, ESP moves down.
+
+![](./stack-recycling.drawio.svg)
+
+### Recylce heap space
+
+Heap space is divided into two areas: 
+
+* `New generation space`: stores short living objects, supporting capacity is 1-8M.
+* `Old generation space`: stores long living objects or large objects, supporting capcacity has no limit.
+
+And differient recoverers are used for the two areas, sub-recoverer is used for `new` area, and main recoverer is used for `old` area.
+
+But the recoverers have the same working flow:
+
+1. Mark: mark active objects(is being using) and unactive objects(can be recycled).
+2. Garbage cleaning: recycling the space of unactive objects.
+3. Memory consolidation: after recycling a lot of space, there might be many memory fragments. When the program needs a large continue memory space, there could be lack of memory.
+
+The main and sub recoverer use different strategies and algorithms.
+
+**Sub recoverer**
+
+It uses Scavenge algorithm and object promotion strategy for recycling.
+
+Scavenge algorithm splits the `new generation space` into two areas: objects area and free area. The following picture shows the structure of memory space in v8.
+
+![](./scavenge-algorithm.drawio.svg)
+
+All the new objects are added to the `objects area`, when this area is full, gabage recyling starts to run, its working flow is:
+
+1. Mark: mark active and unactive objects.
+2. Gabage cleaning: copy all the active objects from `objects area` to `free area`, and then reverse the two areas, so `free areas` becomes `objects area` and former `objects area` becomes `free area`.
+3. Object promotion: if some active objects are still active after gabage cleaning twice.
+
+**Main recoverer**
