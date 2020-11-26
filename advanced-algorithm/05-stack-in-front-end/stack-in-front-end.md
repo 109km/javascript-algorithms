@@ -130,3 +130,32 @@ We can find `double` is on the top, then `calculate`, and `anonymous` means `cal
 
 The numbers `2,4,6` show the line numbers of the code that each context starts at.
 
+
+## Types of memory in JavaScript
+
+The space types in memory can be classsified into 3 types:
+
+1. Code space: store the executable code.
+2. Stack space: store the call stacks and data of basic type.
+3. Heap space: store data of reference type.
+
+
+There are two data types based on the way of visiting the value:
+
+1. Basic type: visit by value.
+2. Reference type : visit by memory address.
+
+**Basic types are:**
+
+* `undefined`
+* `null`
+* `boolean`
+* `number`
+* `string`
+* `bigint`
+* `symbol`
+
+**Reference types are:**
+
+* `object`
+* `array`
