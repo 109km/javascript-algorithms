@@ -159,3 +159,20 @@ There are two data types based on the way of visiting the value:
 
 * `object`
 * `array`
+
+Basic types are stored in `stack`, reference types are stored in `heap`.
+
+```js
+var a = 1; // basic type
+var b = a; // copy value of a to b
+a = 2; // change value of a
+console.log(b); // b is still 1  
+
+var o1 = {age:1}; // reference type
+var o2 = o1; // copy the memory address of o1 to o2
+o1.age = 2; // change o1's data
+console.log(o2); // o2.age is 2, because o1 and o2 points to the same address in memory.
+```
+
+## Garbage recycling
+
