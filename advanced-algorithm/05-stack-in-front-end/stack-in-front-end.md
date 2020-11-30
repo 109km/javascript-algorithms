@@ -191,17 +191,17 @@ Heap space is divided into two areas:
 * `New generation space`: stores short living objects, supporting capacity is 1-8M.
 * `Old generation space`: stores long living objects or large objects, supporting capcacity has no limit.
 
-And differient recoverers are used for the two areas, sub-recoverer is used for `new` area, and main recoverer is used for `old` area.
+And differient collectors are used for the two areas, sub-collector is used for `new` area, and main collector is used for `old` area.
 
-But the recoverers have the same working flow:
+But the collectors have the same working flow:
 
 1. Mark: mark active objects(is being using) and unactive objects(can be recycled).
 2. Garbage cleaning: recycling the space of unactive objects.
 3. Memory consolidation: after recycling a lot of space, there might be many memory fragments. When the program needs a large continue memory space, there could be lack of memory.
 
-The main and sub recoverer use different strategies and algorithms.
+The main and sub collector use different strategies and algorithms.
 
-**Sub recoverer**
+**Sub collector**
 
 It uses Scavenge algorithm and object promotion strategy for recycling.
 
@@ -215,8 +215,33 @@ All the new objects are added to the `objects area`, when this area is full, gab
 2. Gabage cleaning: copy all the active objects from `objects area` to `free area`, and then reverse the two areas, so `free areas` becomes `objects area` and former `objects area` becomes `free area`.
 3. Object promotion: if some active objects are still active after gabage cleaning twice.
 
-**Main recoverer**
+**Main collector**
 
 `Old generation space` includes active objects from `new generation space` and large objects.
 
-So Scavenge algorithm is not suitale here.
+So Scavenge algorithm is not suitale here. `Mark clearance` algorithm is used here. Its flow has 3 steps:
+
+1. Mark: traverse whole call stack, mark the objects which are referenced as `active`, mark the objects which are not referenced as `gabage`.
+2. Gabage cleaning: clean all the gabage data.
+3. Finishing memory: collect all the active objects together.
+
+**Incremental mark**
+
+V8 Engine executes the gabage collection automatically, but as we know, the JavaScript code also runs on the main process, so when gabage collection is executing, the JavaScript must stop.
+
+To not disturb the users' experience, V8 splits gabage collections into many small tasks, these small tasks and JavaScript will be executed in turn.
+
+## Summary
+
+1. Stack: a Last-In-First-Out ordered set.
+2. JavaScript running mechanism: 
+   * Single thread.
+   * Event loop.
+   * Call stack.
+3. Memory spaces: 
+   * Code space: store executable code.
+   * Stack space: store basic type data and pointers.
+   * Heap space: store referenced type data.
+4. Gabage recycling:
+   * Recycle stack: move ESP pointer in the context stack.
+   * Recycle heap: sub collector for `new generation space`, main collector for `old generation space`.
