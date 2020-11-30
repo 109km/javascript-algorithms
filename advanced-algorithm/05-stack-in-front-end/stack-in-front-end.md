@@ -245,3 +245,10 @@ To not disturb the users' experience, V8 splits gabage collections into many sma
 4. Gabage recycling:
    * Recycle stack: move ESP pointer in the context stack.
    * Recycle heap: sub collector for `new generation space`, main collector for `old generation space`.
+
+
+## Exercise
+
+Design a stack which support `push`, `pop`, `top`, `getMin`. And `getMin`'s time complexity must be O(1).
+
+All elements are numbers.
