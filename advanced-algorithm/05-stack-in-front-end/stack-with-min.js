@@ -5,7 +5,7 @@ class MinStack {
     this.__orderedElements = [];
   }
   get top() {
-    return this.elements[0];
+    return this.elements[this.size - 1];
   }
   get size() {
     return this.elements.length;
@@ -21,10 +21,10 @@ class MinStack {
         }
       }
     }
-    this.elements.unshift(el);
+    this.elements.push(el);
   }
   pop() {
-    const ele = this.elements.shift();
+    const ele = this.elements.pop();
     for (let i = 0; i < this.size; i++) {
       if (this.__orderedElements[i] === ele) {
         this.__orderedElements.splice(i, 1);
