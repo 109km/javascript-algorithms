@@ -39,8 +39,6 @@ class MinStack {
 }
 
 const s = new MinStack();
-
-
 s.push(2);
 s.push(3);
 s.push(-1);
@@ -48,4 +46,4 @@ s.push(-3);
 s.pop();
 s.pop();
 
-console.log(s.getMin());
+console.log(s.getMin()); // 2
