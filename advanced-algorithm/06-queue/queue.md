@@ -81,9 +81,9 @@ class Dequeue {
 }
 ```
 
-## Exercise
+## Exercises
 
-Reverse the words in a string. And the result must have correct blanks.
+### Reverse the words in a string. And the result must have correct blanks.
 
 Sample 1:
 
@@ -129,4 +129,59 @@ function reverseWords(str) {
   return q.elements.join(' ');
 }
 ```
+
+### Find the longest sub-string without repeated chars of a string.
+
+Sample 1
+
+```
+Input: "abcabcbb"
+Output: "abc"
+```
+
+Sample 2
+
+```
+Input: "pwwkew"
+Output: "wke"
+```
+
+Example answer using a dequeue as a window.
+
+```js
+function maxNoneRepeatSubstring(str) {
+  let win = new Dequeue();
+  let max = 0;
+
+  let left = 0;
+  let right = 0;
+
+  while (left < str.length) {
+    let char = str.charAt(right);
+    // Find the char in current queue,
+    // or reached the right end.
+    if (win.elements.indexOf(char) >= 0 || right === str.length - 1) {
+      left++;
+      right = left;
+      max = win.size > max ? win.size : max;
+      win.clear();
+    }
+    // Can't find repeated char
+    else if (char) {
+      win.addEnd(char);
+      right++;
+    }
+  }
+  return max;
+}
+```
+
+### Find the max number with a given array and the window which length is `k`.
+
+```
+Input: nums = [1,3,5,2,6,4,5] and k = 3.
+Output: [5,6,6,6]
+```
+
+
 
