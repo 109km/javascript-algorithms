@@ -183,5 +183,28 @@ Input: nums = [1,3,5,2,6,4,5] and k = 3.
 Output: [5,6,6,6]
 ```
 
+Here's an example answer without using dqueue:
+
+```js
+function findMaxNumbersInWindow(nums, k) {
+  const result = [];
+  let start = 0;
+  while (start + k < nums.length) {
+    let currentMax = 0;
+    // Check each number in the window
+    for (let i = 0; i < k; i++) {
+      let num = nums[start + i];
+      if (num > currentMax) {
+        currentMax = num;
+      }
+    }
+    result.push(currentMax);
+    start++;
+  }
+  return result;
+}
+```
+
+
 
 

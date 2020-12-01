@@ -36,7 +36,7 @@ class Dequeue {
     this.elements.unshift(el);
   }
   removeFront() {
-    return this.elements.shift(el);
+    return this.elements.shift();
   }
   addEnd(el) {
     this.elements.push(el);

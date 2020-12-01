@@ -1,4 +1,4 @@
-const Dequeue = require('./queue').Dequeue;
+const { Dequeue } = require("./queue");
 
 function maxNoneRepeatSubstring(str) {
   let win = new Dequeue();
