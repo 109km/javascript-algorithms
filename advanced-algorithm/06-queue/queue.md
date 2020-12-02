@@ -183,7 +183,7 @@ Input: nums = [1,3,5,2,6,4,5] and k = 3.
 Output: [5,6,6,6]
 ```
 
-Here's an example answer without using dqueue:
+Here's an example answer without using dqueue, its time complexity is O(n * k).
 
 ```js
 function findMaxNumbersInWindow(nums, k) {
