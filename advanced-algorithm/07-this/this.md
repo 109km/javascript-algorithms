@@ -6,7 +6,7 @@ It can be understood like this: who's calling me? And this who is `this`.
 
 So the key is we must find `who` is executing the function, so that we find `this`.
 
-It depends on 4 things: 
+It depends on 3 things: 
 
 1. How the function's name is be found
 2. How the function is called
