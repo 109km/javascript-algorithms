@@ -82,3 +82,14 @@ But the result shows `this` is `window`! Why?
 The trap is that `(false || p.sayName)` is executed in the global environment, the result is stored in a hidden anonymous variable in global environment! 
 
 Now you can see the reason.
+
+### Example 5:
+
+```js
+function Human(){
+  console.log(this);
+}
+var someone = new Human();
+```
+
+This situation is so easy, just remember when a function is used as a constructor, the `this` is the instance which it creates.
