@@ -36,6 +36,7 @@ const findThreeNumbersByTarget = (nums: number[], target: number): number[][] =>
         left++;
         mid = left + 1;
         right = mid + 1;
+        continue;
       }
 
       // just move right
