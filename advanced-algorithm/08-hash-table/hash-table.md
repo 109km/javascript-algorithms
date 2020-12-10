@@ -51,7 +51,19 @@ Here is another problem sometims the keys are different, but the `hash value` is
 
 ## Conflict resolution
 
+One of the most commonly used method is **chaining**.
 
+The picture above shows this method:
+
+* Each hash value is the address of the head of a linked list.
+* Same hash values are stored in a linked list.
+
+In this way, a million numbers can be put into 1000 linked lists, and also we can think each linked list as a `bucket`, and the `hash value` is the number of a `bucket`.
+
+When searching a value, 2 steps are needed:
+
+1. Calculate the hash value which also means the number of a bucket. This action's time complexity is O(1).
+2. Loop the bucket and find the matched node according to the key. This action's time complexity is O(1) at best, O(n) at worst.
 
 ## Implementation
 
@@ -164,3 +176,35 @@ console.log(cityHashTable.get('110011'));
 ```
 
 
+## Exercises
+
+### Find the common part of two arrays(only contain numbers). Each number can only be consumed once.
+
+```
+Input: arr1=[1,3,5,2] arr2=[5,1,1,6,9]
+Output: [1,5]
+```
+
+An example answer: 
+
+```ts
+const findCommonArray = (arr1: number[], arr2: number[]): number[] => {
+  const map: object = {};
+  const res: number[] = [];
+  arr1.forEach((num, index) => {
+    map[num] = 1;
+  });
+  arr2.forEach((num, index) => {
+    if (map[num] === 1) {
+      res.push(num);
+      // This number is consumed.
+      map[num] = 0;
+    }
+  });
+  return res;
+}
+
+const arr1 = [1, 1, 1, 5, 2, 4, 9];
+const arr2 = [5, 8, 5, 9, 1, 1];
+console.log(findCommonArray(arr1, arr2)); // [5,9,1]
+```
