@@ -181,20 +181,24 @@ console.log(cityHashTable.get('110011'));
 ### Find the common part of two arrays(only contain numbers). Each number can only be consumed once.
 
 ```
-Input: arr1=[1,3,5,2] arr2=[5,1,1,6,9]
+Input: nums1=[1,3,5,2] nums2=[5,1,1,6,9]
 Output: [1,5]
 ```
 
 An example answer: 
 
 ```ts
-const findCommonArray = (arr1: number[], arr2: number[]): number[] => {
+/**
+ * Use an `object` as a hash table.
+ **/
+
+const findCommonArray = (nums1: number[], nums2: number[]): number[] => {
   const map: object = {};
   const res: number[] = [];
-  arr1.forEach((num, index) => {
+  nums1.forEach((num, index) => {
     map[num] = 1;
   });
-  arr2.forEach((num, index) => {
+  nums2.forEach((num, index) => {
     if (map[num] === 1) {
       res.push(num);
       // This number is consumed.
@@ -204,7 +208,34 @@ const findCommonArray = (arr1: number[], arr2: number[]): number[] => {
   return res;
 }
 
-const arr1 = [1, 1, 1, 5, 2, 4, 9];
-const arr2 = [5, 8, 5, 9, 1, 1];
-console.log(findCommonArray(arr1, arr2)); // [5,9,1]
+const nums1 = [1, 1, 1, 5, 2, 4, 9];
+const nums2 = [5, 8, 5, 9, 1, 1];
+console.log(findCommonArray(nums1, nums2)); // [5,9,1]
 ```
+
+### Given an array `nums` and a target number `target`, find two numbers' sum equals `target`. And each number can only be used once. And a pair of numbers are enough.
+
+```ts
+
+/**
+ * Here is an prerequisite:
+ * Each number in `nums` are unique.
+*/
+const findTwoNumbersByTarget = (nums: number[], target: number): number[] => {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    map.set(num, i);
+    const d = target - num;
+    if (map.has(d)) {
+      return [i, map.get(d)];
+    }
+  }
+  return null;
+}
+
+const nums = [1, 6, 9, 5];
+const target = 14;
+console.log(findTwoNumbersByTarget(nums, target)); // [3,2]
+```
+
