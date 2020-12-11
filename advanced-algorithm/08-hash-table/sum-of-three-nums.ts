@@ -1,11 +1,12 @@
 
-const findThreeNumbersByTarget = (nums: number[], target: number): Set<any> => {
-  const res = new Set();
+const findThreeNumbersByTarget = (nums: number[], target: number): [][] => {
+  const res = [];
   const map = new Map();
   const len = nums.length;
   let left = 0;
   let mid = 1;
 
+  // Sort the numbers from min to max
   nums.sort((a, b) => (a - b));
 
   // Put all nums into a set
@@ -54,7 +55,7 @@ const findThreeNumbersByTarget = (nums: number[], target: number): Set<any> => {
           nums[mid] !== nums[mid - 1]
         ) {
           const combination = [nums[left], nums[mid], nums[matchNum]];
-          res.add(combination);
+          res.push(combination);
         }
       });
       mid++;
