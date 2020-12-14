@@ -1,6 +1,6 @@
 
-const findThreeNumbersByTarget = (nums: number[], target: number): [][] => {
-  const res = [];
+const findThreeNumbersByTarget = (nums: number[], target: number): number[][] => {
+  const res: number[][] = [];
   const map = new Map();
   const len = nums.length;
   let left = 0;
@@ -66,5 +66,3 @@ const findThreeNumbersByTarget = (nums: number[], target: number): [][] => {
 
 const nums: number[] = [1, 0, -1, 5, 9, 7, 7, 6, 0, -1];
 console.log(findThreeNumbersByTarget(nums, 15));
-
-export { }

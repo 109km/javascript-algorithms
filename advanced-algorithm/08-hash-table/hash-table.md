@@ -243,8 +243,8 @@ console.log(findTwoNumbersByTarget(nums, target)); // [3,2]
 
 ```ts
 
-const findThreeNumbersByTarget = (nums: number[], target: number): [][] => {
-  const res = [];
+const findThreeNumbersByTarget = (nums: number[], target: number): number[][] => {
+  const res: number[][] = [];
   const map = new Map();
   const len = nums.length;
   let left = 0;
