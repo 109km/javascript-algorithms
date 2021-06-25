@@ -34,6 +34,7 @@ function MyPromise(init) {
     }
   }
 
+  // 每次都返回一个新的Promise实例，以实现链式调用
   _this.then = function (onFulfilled, onRejected) {
     if (typeof onFulfilled !== 'function') {
       onFulfilled = function (result) {}
