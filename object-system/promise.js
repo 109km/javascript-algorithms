@@ -119,4 +119,7 @@ p1.then((text) => {
   })
 }).then((text) => {
   console.log('2:', text)
+  setTimeout(() => {
+    console.log('3:2000ms-2')
+  }, 2000)
 })
