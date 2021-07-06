@@ -1,5 +1,5 @@
 const ReactHooks = (() => {
-  const hooks = [] // store the states by order
+  const hooks = [] // store the states by calling `useState`'s order
   let currentHookIndex = 0 // current hook index
 
   return {
