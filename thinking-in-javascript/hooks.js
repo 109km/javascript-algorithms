@@ -4,7 +4,44 @@
 
 const ReactHooks = (() => {
   const hooks = [] // store the states by calling `useState`'s order
+  let effects = [] // store the callbacks of `useEffect`
+  let effectsDeps = [] // store the effects' deps
   let currentHookIndex = 0 // current hook index
+  let isInited = false
+
+  function onRendered() {
+    effects.map((effect, effectIndex) => {
+      const { callback, deps } = effect
+      // no deps, executes each time
+      if (typeof deps === 'undefined') {
+        callback && callback()
+      }
+      // deps === [], executes only once
+      else if (Array.isArray(deps) && deps.length === 0 && isInited === false) {
+        isInited = true
+        callback && callback()
+      }
+      // has deps, excutes when match the deps
+      else if (Array.isArray(deps) && deps.length > 0) {
+        let lastDeps = effectsDeps[effectIndex]
+        let isUpdated = false
+        lastDeps.some((dep, index) => {
+          if (dep !== deps[index]) {
+            isUpdated = true
+            return true
+          }
+        })
+        if (isUpdated) {
+          callback && callback()
+        }
+      }
+    })
+
+    // after render, reset all these variables
+    currentHookIndex = 0
+    effectsDeps = []
+    effects = []
+  }
 
   return {
     useState(initial) {
@@ -28,67 +65,55 @@ const ReactHooks = (() => {
 
       return [hooks[index], setState]
     },
+    useEffect(fn, deps) {
+      effects.push({
+        callback: fn,
+        deps: deps,
+      })
+      effectsDeps.push(deps)
+    },
     render(Component) {
       const comp = Component()
       comp.render()
 
-      // After rendering, reset the index.
-      currentHookIndex = 0
+      // After rendering
+      onRendered()
       return comp
     },
   }
 })()
 
-function runReactHooksExample() {
-  function Count() {
-    const [num1, setNum1] = ReactHooks.useState(0)
-    const [num2, setNum2] = ReactHooks.useState(0)
-    return {
-      click: () => {
-        setNum1(num1 + 1)
-        setNum2(num2 + 2)
-      },
-      render: () => {
-        console.log('Count.render', { num1, num2 })
-      },
-    }
-  }
+function Count() {
+  const [num1, setNum1] = ReactHooks.useState(0)
+  const [num2, setNum2] = ReactHooks.useState(0)
 
-  let comp1 = ReactHooks.render(Count)
-  comp1.click()
+  ReactHooks.useEffect(() => {
+    console.log('useEffect.each:', num1, num2)
+  })
 
-  comp1 = ReactHooks.render(Count)
-  comp1.click()
+  ReactHooks.useEffect(() => {
+    console.log('useEffect.onMount:', num1, num2)
+  }, [])
 
-  comp1 = ReactHooks.render(Count)
-}
+  ReactHooks.useEffect(() => {
+    console.log('useEffect.num1:', num1, num2)
+  }, [num1, num2])
 
-/**
- * @description This is a very simple example of react hooks.
- * @param {Any} initial The initial value of this state.
- * @returns {Function} A function contains this state's getter and setter.
- */
-function createState(initial) {
-  let val = initial
-  return function () {
-    function setState(newState) {
-      val = newState
-    }
-    function getState() {
-      return val
-    }
-    return [getState, setState]
+  return {
+    click: () => {
+      setNum1(num1 + 1)
+      setNum2(num2 + 2)
+    },
+    render: () => {
+      console.log('Count.render', { num1, num2 })
+    },
   }
 }
 
-function runSimpleHooksExample() {
-  const state1 = createState(1)
-  const state2 = createState(2)
-  const [num1, setNum1] = state1()
-  const [num2, setNum2] = state2()
-  setNum1(2)
-  setNum2(6)
-  console.log('After setState:', num1(), num2())
-}
+let comp1 = ReactHooks.render(Count)
+comp1.click()
 
-runSimpleHooksExample()
+comp1 = ReactHooks.render(Count)
+comp1.click()
+
+comp1 = ReactHooks.render(Count)
