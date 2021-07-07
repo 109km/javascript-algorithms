@@ -24,10 +24,8 @@ const ReactHooks = (() => {
       // has deps, excutes when match the deps
       else if (Array.isArray(deps) && deps.length > 0) {
         let lastDeps = effectsDeps[effectIndex]
-        let isUpdated = false
-        lastDeps.some((dep, index) => {
+        let isUpdated = lastDeps.some((dep, index) => {
           if (dep !== deps[index]) {
-            isUpdated = true
             return true
           }
         })
@@ -35,11 +33,12 @@ const ReactHooks = (() => {
           callback && callback()
         }
       }
+      // update the effects deps
+      effectsDeps[effectIndex] = deps
     })
 
     // after render, reset all these variables
     currentHookIndex = 0
-    effectsDeps = []
     effects = []
   }
 
@@ -96,8 +95,12 @@ function Count() {
   }, [])
 
   ReactHooks.useEffect(() => {
-    console.log('useEffect.num1:', num1, num2)
-  }, [num1, num2])
+    console.log('useEffect.num1:', num1)
+  }, [num1])
+
+  ReactHooks.useEffect(() => {
+    console.log('useEffect.num2:', num2)
+  }, [num2])
 
   return {
     click: () => {
@@ -111,6 +114,9 @@ function Count() {
 }
 
 let comp1 = ReactHooks.render(Count)
+comp1.click()
+
+comp1 = ReactHooks.render(Count)
 comp1.click()
 
 comp1 = ReactHooks.render(Count)
