@@ -103,8 +103,10 @@ function Count() {
   }, [num2])
 
   return {
-    click: () => {
+    click1: () => {
       setNum1(num1 + 1)
+    },
+    click2: () => {
       setNum2(num2 + 2)
     },
     render: () => {
@@ -114,12 +116,9 @@ function Count() {
 }
 
 let comp1 = ReactHooks.render(Count)
-comp1.click()
+comp1.click1()
 
 comp1 = ReactHooks.render(Count)
-comp1.click()
-
-comp1 = ReactHooks.render(Count)
-comp1.click()
+comp1.click2()
 
 comp1 = ReactHooks.render(Count)
