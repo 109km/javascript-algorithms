@@ -10,6 +10,17 @@ const ReactHooks = (() => {
   let isInited = false
 
   function onRendered() {
+    executeEffects()
+    reset()
+  }
+
+  // after render, reset all these variables
+  function reset() {
+    currentHookIndex = 0
+    effects = []
+  }
+
+  function executeEffects() {
     effects.map((effect, effectIndex) => {
       const { callback, deps } = effect
       // no deps, executes each time
@@ -36,10 +47,6 @@ const ReactHooks = (() => {
       // update the effects deps
       effectsDeps[effectIndex] = deps
     })
-
-    // after render, reset all these variables
-    currentHookIndex = 0
-    effects = []
   }
 
   return {
