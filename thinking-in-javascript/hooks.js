@@ -4,9 +4,11 @@
 
 const ReactHooks = (() => {
   const hooks = [] // store the states by calling `useState`'s order
+  const memos = [] // store the callbacks and dependencies of `useMemo`
   let effects = [] // store the callbacks of `useEffect`
   let effectsDeps = [] // store the effects' deps
   let currentHookIndex = 0 // current hook index
+  let currentMemoIndex = 0
   let isInited = false
 
   function onRendered() {
@@ -14,9 +16,25 @@ const ReactHooks = (() => {
     reset()
   }
 
+  function isDepsUpdated(newDeps, oldDeps) {
+    if (Array.isArray(newDeps) === false) {
+      throw new Error('The first argument must be an array.')
+    }
+    if (Array.isArray(oldDeps) === false) {
+      throw new Error('The second argument must be an array.')
+    }
+
+    return oldDeps.some((dep, index) => {
+      if (dep !== newDeps[index]) {
+        return true
+      }
+    })
+  }
+
   // after render, reset all these variables
   function reset() {
     currentHookIndex = 0
+    currentMemoIndex = 0
     effects = []
   }
 
@@ -35,11 +53,7 @@ const ReactHooks = (() => {
       // has deps, excutes when match the deps
       else if (Array.isArray(deps) && deps.length > 0) {
         let lastDeps = effectsDeps[effectIndex]
-        let isUpdated = lastDeps.some((dep, index) => {
-          if (dep !== deps[index]) {
-            return true
-          }
-        })
+        let isUpdated = isDepsUpdated(deps, lastDeps)
         if (isUpdated) {
           callback && callback()
         }
@@ -78,6 +92,31 @@ const ReactHooks = (() => {
       })
       effectsDeps.push(deps)
     },
+    useMemo(fn, deps) {
+      if (!Array.isArray(deps)) {
+        throw new Error('The second argument must be an array.')
+      }
+
+      let cachedRes
+      if (typeof memos[currentMemoIndex] === 'undefined') {
+        cachedRes = fn()
+        memos[currentMemoIndex] = {
+          cachedRes: cachedRes,
+          deps: deps || [],
+        }
+      } else {
+        let lastDeps = memos[currentMemoIndex]['deps']
+        let isUpdated = isDepsUpdated(deps, lastDeps)
+        if (isUpdated) {
+          cachedRes = fn()
+          memos[currentMemoIndex]['cachedRes'] = cachedRes
+        } else {
+          cachedRes = memos[currentMemoIndex]['cachedRes']
+        }
+      }
+      currentMemoIndex++
+      return cachedRes
+    },
     render(Component) {
       const comp = Component()
       comp.render()
@@ -92,6 +131,10 @@ const ReactHooks = (() => {
 function Count() {
   const [num1, setNum1] = ReactHooks.useState(0)
   const [num2, setNum2] = ReactHooks.useState(0)
+
+  const memo1 = ReactHooks.useMemo(() => {
+    return num2 + 100
+  }, [num2])
 
   ReactHooks.useEffect(() => {
     console.log('useEffect.each:', num1, num2)
@@ -117,7 +160,7 @@ function Count() {
       setNum2(num2 + 2)
     },
     render: () => {
-      console.log('Count.render', { num1, num2 })
+      console.log('Count.render', { num1, num2, memo1 })
     },
   }
 }
