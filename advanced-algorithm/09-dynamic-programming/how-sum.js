@@ -1,5 +1,5 @@
 // if m = targetNum and n = arr.length
-// time: O(n^m * m)
+// time: O(n^m*m)
 // space: O(m)
 const howSum = (targetNum, arr) => {
   if (targetNum === 0) return [];
@@ -15,6 +15,8 @@ const howSum = (targetNum, arr) => {
   return null
 }
 
+// time: O(n*m^2)
+// space: O(m^2)
 const howSumWithMemo = (targetNum, arr, memo = {}) => {
   if (memo[targetNum]) return memo[targetNum];
   if (targetNum === 0) return [];
@@ -30,10 +32,11 @@ const howSumWithMemo = (targetNum, arr, memo = {}) => {
       return memo[targetNum]
     }
   }
+  memo[targetNum] = null
   return null
 }
 
 
-const targetNum = 7
-const arr = [5, 3, 4, 8]
+const targetNum = 79
+const arr = [19, 3, 4, 8]
 console.log(howSumWithMemo(targetNum, arr))
