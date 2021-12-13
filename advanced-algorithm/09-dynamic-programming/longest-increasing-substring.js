@@ -20,5 +20,5 @@ const getLongestIncreasingSubsequence = (numbers) => {
   return longestSubsequence
 }
 
-const arr = [10, 22, 9, 33, 21, 5, 41, 60]
+const arr = [10, 22, 9, 20, 21, 5, 41, 60]
 console.log(getLongestIncreasingSubsequence(arr))
