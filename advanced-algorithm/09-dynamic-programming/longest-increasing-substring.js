@@ -15,6 +15,8 @@ const countLongestIncreasingSubsequence = (numbers) => {
   }
   return Math.max(...dp)
 }
+
+// Use a two-dimensional array to store the longest increasing subsequence
 const getLongestIncreasingSubsequence = (numbers) => {
   if (numbers.length <= 1) return numbers
   const dp = Array(numbers.length).fill([])
