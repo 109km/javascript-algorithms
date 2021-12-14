@@ -41,6 +41,6 @@ const getLongestIncreasingSubsequence = (numbers) => {
   return longestSubsequence
 }
 
-const arr = [12, 100, 13, 11, 12, 13]
+const arr = [10, 100, 13, 11, 12, 13]
 console.log(countLongestIncreasingSubsequence(arr))
 console.log(getLongestIncreasingSubsequence(arr))
