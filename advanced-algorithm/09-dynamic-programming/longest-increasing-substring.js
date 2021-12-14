@@ -15,22 +15,6 @@ const countLongestIncreasingSubsequence = (numbers) => {
   }
   return Math.max(...dp)
 }
-
-const countLongestIncreasingSubsequenceWithMemo = (numbers) => {
-  if (numbers.length <= 1) return numbers.length
-
-  const dp = Array(numbers.length).fill(1)
-  const len = numbers.length
-  for (let i = 0; i < len; i++) {
-    for (let j = 0; j < i; j++) {
-      if (numbers[i] > numbers[j]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1)
-      }
-    }
-  }
-  return Math.max(...dp)
-}
-
 const getLongestIncreasingSubsequence = (numbers) => {
   if (numbers.length <= 1) return numbers
   const dp = Array(numbers.length).fill([])
