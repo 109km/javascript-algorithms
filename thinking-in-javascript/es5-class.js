@@ -29,8 +29,9 @@ function Class(options) {
   }
   function innerClass() {
     var _this = {}
+    var args = [].slice.call(arguments)
+    options.constructor.apply(_this, args)
     addPrototypes(_this, options)
-    options.constructor.apply(_this, arguments)
     return _this
   }
   return innerClass
@@ -45,13 +46,14 @@ Class.extend = function (superClass, options) {
   }
   function childClass() {
     var _this = {}
+    var args = [].slice.call(arguments)
     if (
       options.hasOwnProperty('constructor') &&
       getDataType(options.constructor) === 'function'
     ) {
-      _this = new options.constructor(...arguments)
+      options.constructor.apply(_this, args)
     } else {
-      _this = new superClass(...arguments)
+      _this = superClass.apply(_this, args)
     }
     addPrototypes(_this, options)
     return _this
@@ -76,9 +78,6 @@ var Dog = Class({
 var snoopy = new Dog('snoopy')
 snoopy.bark()
 
-var corgi = new Dog('corgi', 11)
-corgi.run()
-
 var Husky = Class.extend(Dog, {
   type: 'Husky',
   constructor: function (name, age) {
@@ -96,3 +95,18 @@ var Husky = Class.extend(Dog, {
 
 var husky = new Husky('husky', 12)
 husky.jump().run()
+
+var BlackHusky = Class.extend(Husky, {
+  color: 'black',
+  run: function () {
+    console.log(
+      this.name +
+        ' is running fast like ' +
+        this.color +
+        ' light, and its age is ' +
+        this.age,
+    )
+  },
+})
+var blackHusky = new BlackHusky('QQQ', 5)
+blackHusky.run()
