@@ -22,17 +22,23 @@ Class.extend = function (superClass, options) {
 }
 
 function createClass(ctor, protos) {
-  function newClass() {
+  function constructor() {
     ctor.apply(this, arguments)
   }
-  newClass.prototype = protos
-  Object.defineProperty(newClass.prototype, 'constructor', {
-    value: newClass,
-    configurable: true,
+
+  if (getDataType(protos) === 'object') {
+    constructor.prototype = protos
+  } else {
+    constructor.prototype = Object.prototype
+  }
+
+  Object.defineProperty(constructor.prototype, 'constructor', {
+    value: constructor,
+    configurable: false,
     enumerable: false,
-    writable: true,
+    writable: false,
   })
-  return newClass
+  return constructor
 }
 
 function getDataType(o) {
