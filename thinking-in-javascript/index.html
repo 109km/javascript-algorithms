@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./es5-class-v2.js"></script>
+    <script>
+      var Dog = Class({
+        constructor: function (name) {
+          this.name = name
+        },
+        run: function () {
+          console.log(this.name + ' is running.')
+          return this
+        },
+      })
+
+      var dog1 = new Dog('Snoopy')
+      dog1.run()
+
+      var WildDog = Class.extend(Dog, {
+        jump: function () {
+          console.log(this.name + ' is jumping wildly.')
+          return this
+        },
+      })
+
+      var dog2 = new WildDog('Goofy')
+      dog2.jump().run()
+
+      var WildHusky = Class.extend(WildDog, {
+        type: 'Husky',
+        constructor: function (name, color) {
+          this.name = name
+          this.color = color
+        },
+        bark: function () {
+          console.log(
+            this.name +
+              ' is barking, this kind of ' +
+              this.type +
+              ' like to bark, ' +
+              'and its color is ' +
+              this.color,
+          )
+          return this
+        },
+      })
+      var dog3 = new WildHusky('Foo', 'white')
+      dog3.bark().run().jump()
+
+      console.log(dog1, dog2, dog3)
+    </script>
+  </body>
+</html>

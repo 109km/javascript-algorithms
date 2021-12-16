@@ -12,9 +12,9 @@ function Class(options) {
   return createClass(ctor, protos)
 }
 Class.extend = function (superClass, options) {
-  var superProtos = getProtos(superClass.prototype)
+  var superProtos = Object.create(superClass.prototype)
   var currProtos = getProtos(options)
-  var mixedProtos = Object.assign({}, superProtos, currProtos)
+  var mixedProtos = Object.assign(superProtos, currProtos)
   var ctor = options.hasOwnProperty('constructor')
     ? options.constructor
     : superClass
@@ -25,7 +25,12 @@ function createClass(ctor, protos) {
   function newClass() {
     ctor.apply(this, arguments)
   }
-  newClass.prototype = Object.assign({}, protos) // Just replace it directly
+  newClass.prototype = protos
+  Object.defineProperty(newClass.prototype, 'constructor', {
+    value: newClass,
+    enumerable: false,
+    writable: true,
+  })
   return newClass
 }
 
@@ -47,50 +52,3 @@ function getProtos(options) {
   }
   return protos
 }
-
-var Dog = Class({
-  constructor: function (name) {
-    this.name = name
-  },
-  run: function () {
-    console.log(this.name + ' is running.')
-    return this
-  },
-})
-
-var dog1 = new Dog('Snoopy')
-dog1.run()
-
-var WildDog = Class.extend(Dog, {
-  jump: function () {
-    console.log(this.name + ' is jumping wildly.')
-    return this
-  },
-  run: function () {
-    console.log(this.name + ' is running wildly.')
-    return this
-  },
-})
-
-var dog2 = new WildDog('Goofy')
-dog2.jump().run()
-
-var WildHusky = Class.extend(WildDog, {
-  type: 'Husky',
-  constructor: function (name, color) {
-    this.name = name
-    this.color = color
-  },
-  bark: function () {
-    console.log(
-      this.name +
-        ' is barking, this kind of ' +
-        this.type +
-        ' like to bark, ' +
-        'and its color is ' +
-        this.color,
-    )
-  },
-})
-var dog3 = new WildHusky('Foo', 'white')
-dog3.bark()
