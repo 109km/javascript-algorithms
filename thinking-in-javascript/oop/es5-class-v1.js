@@ -21,3 +21,7 @@ Object.defineProperty(Dog.prototype, 'constructor', {
   enumerable: false,
   writable: true,
 })
+
+Dog.prototype.bark = function () {
+  console.log(this.name + ' is barking')
+}
