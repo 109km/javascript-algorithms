@@ -28,6 +28,7 @@ function createClass(ctor, protos) {
   newClass.prototype = protos
   Object.defineProperty(newClass.prototype, 'constructor', {
     value: newClass,
+    configurable: true,
     enumerable: false,
     writable: true,
   })
