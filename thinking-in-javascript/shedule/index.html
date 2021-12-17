@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="recover">recover</button>
+    <script type="module">
+      import shedule from './shedule.js'
+
+      let i = 10
+      while (i !== 0) {
+        let j = i
+        shedule.add(function () {
+          if (j === 5){
+            shedule.abort()
+          }
+          console.log(j)
+        })
+        i--
+      }
+      shedule.onEnd(() => {
+        console.log('All tasks ended.')
+      })
+      shedule.start()
+
+      document.getElementById('recover').addEventListener('click', () => {
+        shedule.recover()
+      })
+    </script>
+  </body>
+</html>
