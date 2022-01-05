@@ -51,7 +51,43 @@ const convert = (s, numRows) => {
 
   return result
 }
+/**
+ *
+ * P     I    N
+ * A   L S  I G
+ * Y A   H R
+ * P     I
+ *
+ */
+const convertV2 = (s, numRows) => {
+  if (numRows === 1) return s
+
+  const n = s.length
+  const groupSize = 2 * numRows - 2
+  const result = []
+  for (let i = 0; i < n; i++) {
+    const elementIndex = i % groupSize
+    const row = elementIndex < numRows ? elementIndex : groupSize - elementIndex
+    if (result[row] === undefined) {
+      result[row] = ''
+    }
+    result[row] += s[i]
+  }
+  return result.join('')
+}
+
+const convertV3 = (s, numRows) => {
+  // 1. Make an array with the zigzag sequence
+  const zigzag = [...new Array(numRows).keys()]
+  zigzag.push(...zigzag.slice(1, -1).reverse())
+  // 2. Make an array with as many strings as we need rows
+  const rows = new Array(numRows).fill('')
+  // 3. Append the characters to the row strings in zigzag sequence
+  ;[...s].forEach((c, i) => (rows[zigzag[i % zigzag.length]] += c))
+  // 4. Join the row strings in the array together
+  return rows.join('')
+}
 
 const s = 'PAYPALISHIRING'
 const numRows = 3
-console.log(convert(s, numRows))
+console.log(convertV2(s, numRows))
