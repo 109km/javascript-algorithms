@@ -3,10 +3,6 @@
  * @param {string} p
  * @return {boolean}
  *
- * abc,a*,bc
- * bc,a*,bc
- * bc,bc,''
- * '','',''
  */
 const isMatch = (s, p) => {
   const AnyMark = '.'
