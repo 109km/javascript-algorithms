@@ -58,30 +58,29 @@ const isMatchDP = (s, p) => {
 
 const isMatch_v2 = (s, p) => {
   if (s === p) return true
+  if (p.length === 0 && s.length > 0) return false
   if (s.length === 0) return p === '.' || (p.length === 2 && p[1] === '*')
 
   const matched = s[0] === p[0] || p[0] === '.'
-
   if (p.length > 1 && p[1] === '*') {
-    return (
-      matched &&
-      (isMatch_v2(s.slice(1), p.slice(2)) || isMatch_v2(s.slice(1), p))
-    )
+    return isMatch_v2(s, p.slice(2)) || (matched && isMatch_v2(s.slice(1), p))
   } else {
     return matched && isMatch_v2(s.slice(1), p.slice(1))
   }
 }
 
 const testCases = [
-  // ['', ''],
-  // ['', 'a*'],
-  // ['abc', 'a*b*c'],
+  ['', ''],
+  ['', 'a*'],
+  ['abc', 'a*b*c'],
   ['aa', 'a'],
   ['abcc', 'abc*'],
   ['abcb', 'abc*'],
   ['aqasdfjklbccc', '.*'],
   ['abc', '.*d'],
   ['abcdef', 'ab.*ef'],
+  ['aab', 'ac*a*b'],
+  ['mississippi', 'mis*is*p*.'],
 ]
 testCases.forEach((testCase) => {
   console.log(isMatch_v2(...testCase))
