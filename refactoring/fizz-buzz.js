@@ -325,4 +325,48 @@ function version4_final(total) {
  * Another point we need to notice is: test after each step.
  * An important theory in software engineering is later a bug is found, more cost is spent.
  * To avoid this, we can write some test cases just after each step.
+ *
+ * At last let's see a complete version of the problem.
+ * 1. Students count number in order.
+ * 2. If the number is divisible by 3, count "Fizz", if it is divisible by 5, count "Buzz",
+ *    if it is divisible by 7, count "Bang".
+ * 3. If the number is divisible by 3 and 5, count "FizzBuzz", if it is divisible by 3 and 7,
+ *    count "FizzBang" and so on.
+ * 4. If the number contains 3, count "Fizz". For example 13, count "Fizz".
+ * 5. If the number contains 3 ignore rule 2,3. For example 35 only counts "Fizz".
+ * 6. If the number contains 5, ignore rule 4,5 and ignore if is divisible by 3.
+ *    For example 35 counts "BuzzBang".
+ * 7. If the number contains 7, ignore if is divisible by 5 and
+ *    ignore `ignore if is divisible by 3` in rule 6. For example 75 counts "Fizz".
  */
+
+function complexFizzBuzz(total) {
+  for (let i = 1; i < total; i++) {
+    console.log(fizzBuzz(i))
+  }
+
+  function fizzBuzz(i) {
+    const contains3 = String(i).indexOf('3') > -1
+    const contains5 = String(i).indexOf('5') > -1
+    const contains7 = String(i).indexOf('7') > -1
+    // rule 4,5
+    if (contains3 && !contains5) {
+      return 'Fizz'
+    }
+    let result = ''
+    // In rule 6: ignore if is divisible by 3 => !contains5
+    // In rule 7: ignore `ignore if is divisible by 3` => contains7
+    if (i % 3 === 0 && (!contains5 || contains7)) {
+      result += 'Fizz'
+    }
+    // In rule 7: `ignore if is divisible by 5` => contains7
+    if (i % 5 === 0 && !contains7) {
+      result += 'Buzz'
+    }
+    if (i % 7 === 0) {
+      result += 'Bang'
+    }
+
+    return result
+  }
+}
