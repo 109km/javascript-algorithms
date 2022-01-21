@@ -278,6 +278,21 @@ function version4_final(total) {
     }
     return result
   }
+
+  // test
+  function test_fizz_case() {
+    const tests = [9, 21, 102]
+    let isPassed = false
+    for (let i = 0; i < tests.length; i++) {
+      if (fizzBuzz(tests[i]) !== 'Fizz') {
+        isPassed = false
+        console.error(`Fizz test failed at ${tests[i]}`)
+        break
+      }
+    }
+    return isPassed
+  }
+  test_fizz_case()
 }
 
 /**
@@ -285,4 +300,8 @@ function version4_final(total) {
  * As we can see, the code is very clear and easy to read.
  * And the ciclomatic complexity is reduced from 14 to 5, wow!
  * We can also control the student's number by changing the parameter.
+ *
+ * Another point we need to notice is: test after each step.
+ * An important theory in software engineering is later a bug is found, more cost is spent.
+ * To avoid this, we can write some test cases just after each step.
  */
