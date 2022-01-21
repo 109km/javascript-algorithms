@@ -280,19 +280,40 @@ function version4_final(total) {
   }
 
   // test
-  function test_fizz_case() {
+  function test_should_return_Fizz_given_input_can_be_divided_by_3() {
     const tests = [9, 21, 102]
     let isPassed = false
     for (let i = 0; i < tests.length; i++) {
       if (fizzBuzz(tests[i]) !== 'Fizz') {
         isPassed = false
-        console.error(`Fizz test failed at ${tests[i]}`)
+        console.error(
+          `test_should_return_Buzz_given_input_can_be_divided_by_5 at ${tests[i]}`,
+        )
         break
       }
     }
-    return isPassed
+    console.log(
+      'test_should_return_Fizz_given_input_can_be_divided_by_3 passed',
+    )
   }
-  test_fizz_case()
+  function test_should_return_Buzz_given_input_can_be_divided_by_5() {
+    const tests = [5, 20, 55, 200]
+    let isPassed = false
+    for (let i = 0; i < tests.length; i++) {
+      if (fizzBuzz(tests[i]) !== 'Buzz') {
+        isPassed = false
+        console.error(
+          `test_should_return_Buzz_given_input_can_be_divided_by_5 failed at ${tests[i]}`,
+        )
+        break
+      }
+    }
+    console.log(
+      'test_should_return_Buzz_given_input_can_be_divided_by_5 passed',
+    )
+  }
+  test_should_return_Fizz_given_input_can_be_divided_by_3()
+  test_should_return_Buzz_given_input_can_be_divided_by_5()
 }
 
 /**
