@@ -231,10 +231,58 @@ function version4_step3() {
 /**
  * @version4
  * Step 4: Test the logic with the new function.
+ * And remove some unnecessary code.
+ * And we notice that the loop part of code is not changed, and it
+ * doesn't know what happened with `fizzBuzz` at all.
  */
+
+function version4_step4() {
+  for (let i = 1; i <= 500; i++) {
+    console.log(fizzBuzz(i))
+  }
+  function fizzBuzz(i) {
+    let result = ''
+    if (i % 3 === 0) {
+      result += 'Fizz'
+    }
+    if (i % 5 === 0) {
+      result += 'Buzz'
+    }
+    if (i % 7 === 0) {
+      result += 'Bang'
+    }
+    return result
+  }
+}
+
+/**
+ * @version4
+ * At last we can add a little more change to the code:
+ * make the number of students more flexible.
+ */
+
+function version4_final(total) {
+  for (let i = 1; i <= total; i++) {
+    console.log(fizzBuzz(i))
+  }
+  function fizzBuzz(i) {
+    let result = ''
+    if (i % 3 === 0) {
+      result += 'Fizz'
+    }
+    if (i % 5 === 0) {
+      result += 'Buzz'
+    }
+    if (i % 7 === 0) {
+      result += 'Bang'
+    }
+    return result
+  }
+}
 
 /**
  * @Summary
  * As we can see, the code is very clear and easy to read.
  * And the ciclomatic complexity is reduced from 14 to 5, wow!
+ * We can also control the student's number by changing the parameter.
  */
