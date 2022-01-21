@@ -338,6 +338,9 @@ function version4_final(total) {
  *    For example 35 counts "BuzzBang".
  * 7. If the number contains 7, ignore if is divisible by 5 and
  *    ignore `ignore if is divisible by 3` in rule 6. For example 75 counts "Fizz".
+ *
+ * We just describe the logic above through code. Don't design the code too much.
+ * Over-designed code also brings more complexity.
  */
 
 function complexFizzBuzz(total) {
