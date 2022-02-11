@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventEmitter</title>
+  </head>
+  <body>
+    <script src="./eventEmitter.js"></script>
+    <script>
+      var emitter = new EventEmitter()
+      emitter.on('foo', function (a) {
+        console.log('on:foo', a)
+      })
+
+      emitter.once('foo', function (b) {
+        console.log('once:foo', b)
+      })
+      emitter.emit('foo', 1)
+      setTimeout(() => {
+        emitter.emit('foo', 2)
+        emitter.emit('foo', 3)
+      }, 1000)
+    </script>
+  </body>
+</html>
