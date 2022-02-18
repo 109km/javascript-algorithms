@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clone</title>
+</head>
+<body>
+  <script src="./clone.js"></script>
+  <script>
+
+    function log(){
+      console.log.apply(console, arguments);
+    }
+
+    var obj = {
+      name: 'John',
+      age: 30,
+      log: function(){
+        log('log');
+      },
+      hobbies: [{
+        name: 'Sports',
+        type: 'sport'
+      }, {
+        name: 'Cooking',
+        type: 'cooking'
+      }]
+    };
+
+    var obj2 = clone(obj);    
+    obj2.age = 31;
+    obj2.name = 'John2';
+    console.log(obj,obj2)
+
+  </script>
+</body>
+</html>
