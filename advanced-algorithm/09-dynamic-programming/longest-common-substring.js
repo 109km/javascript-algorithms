@@ -3,6 +3,8 @@
  * @param {String} text1
  * @param {String} text2
  * @returns {Number} The length of the longest common subsequence
+ *
+ * TODO: In this case, 'a' and 'aaa', this method doesn't work
  */
 
 const longestCommonSubsequence = (text1, text2) => {
@@ -29,7 +31,7 @@ const longestCommonSubsequence = (text1, text2) => {
 const testMethod = longestCommonSubsequence
 function testCase1() {
   const text1 = 'a'
-  const text2 = 'abcabcba'
+  const text2 = 'aa'
   console.log(testMethod(text1, text2))
 }
 
