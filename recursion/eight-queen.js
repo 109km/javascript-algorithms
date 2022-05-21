@@ -24,12 +24,9 @@ const isBoardValid = (board) => {
   return count === board.length
 }
 
-const solutions = []
-
 function solveEightQueen(board, row) {
   if (row === board.length) {
     console.log(board)
-    solutions.push(board)
     return true
   }
 
@@ -45,4 +42,3 @@ function solveEightQueen(board, row) {
   return false
 }
 solveEightQueen(createBoard(8), 0)
-// console.log(solutions)
