@@ -25,20 +25,24 @@ const isBoardValid = (board) => {
 }
 
 function solveEightQueen(board, row) {
+  // If the board is full, return true
   if (row === board.length) {
     console.log(board)
     return true
   }
 
-  // Put a queen in each column
+  // Try to put a queen in each row
   for (let col = 0; col < board.length; col++) {
+    // If the position is valid, put a queen
     if (checkPositionValid(board, row, col)) {
       board[row][col] = 1
+      // Check if the next row is valid
       if (solveEightQueen(board, row + 1)) return true
+      // If the next row is not valid, remove the queen
       board[row][col] = 0
     }
   }
-
+  // Go back to the previous row
   return false
 }
 solveEightQueen(createBoard(8), 0)
